@@ -1,0 +1,126 @@
+[
+  {
+    "sku": "LAP-001",
+    "name": "ProBook 15",
+    "category": "Laptops",
+    "price": 899.99,
+    "brand": "TechCorp",
+    "stock": 45,
+    "tags": [
+      "business",
+      "15-inch"
+    ],
+    "rating": 4.5,
+    "active": true,
+    "_id": {
+      "$oid": "9bbed5c474e5446f92a87cf6"
+    }
+  },
+  {
+    "sku": "LAP-002",
+    "name": "UltraBook 14",
+    "category": "Laptops",
+    "price": 1299.99,
+    "brand": "TechCorp",
+    "stock": 12,
+    "tags": [
+      "premium",
+      "14-inch",
+      "lightweight"
+    ],
+    "rating": 4.8,
+    "active": true,
+    "_id": {
+      "$oid": "53da0a91786d4d28a66fa7e3"
+    }
+  },
+  {
+    "sku": "MON-001",
+    "name": "WideView 27",
+    "category": "Monitors",
+    "price": 449.99,
+    "brand": "DisplayPlus",
+    "stock": 30,
+    "tags": [
+      "4K",
+      "27-inch",
+      "USB-C"
+    ],
+    "rating": 4.3,
+    "active": true,
+    "_id": {
+      "$oid": "0896743d650949f5932605dc"
+    }
+  },
+  {
+    "sku": "MON-002",
+    "name": "GamePanel 32",
+    "category": "Monitors",
+    "price": 699.99,
+    "brand": "DisplayPlus",
+    "stock": 8,
+    "tags": [
+      "gaming",
+      "32-inch",
+      "144Hz"
+    ],
+    "rating": 4.7,
+    "active": true,
+    "_id": {
+      "$oid": "d46fdf7f247040548bb7e1a2"
+    }
+  },
+  {
+    "sku": "KBD-001",
+    "name": "TypeMaster Pro",
+    "category": "Keyboards",
+    "price": 149.99,
+    "brand": "KeyTech",
+    "stock": 100,
+    "tags": [
+      "mechanical",
+      "wireless",
+      "backlit"
+    ],
+    "rating": 4.6,
+    "active": true,
+    "_id": {
+      "$oid": "9d5c0b901e98483d980be613"
+    }
+  },
+  {
+    "sku": "KBD-002",
+    "name": "SilentType 60",
+    "category": "Keyboards",
+    "price": 89.99,
+    "brand": "KeyTech",
+    "stock": 0,
+    "tags": [
+      "mechanical",
+      "60-percent",
+      "silent"
+    ],
+    "rating": 4.4,
+    "active": false,
+    "_id": {
+      "$oid": "f40c65414ceb4aa1bcd45e37"
+    }
+  },
+  {
+    "sku": "LAP-003",
+    "name": "BudgetBook 15",
+    "category": "Laptops",
+    "price": 549.99,
+    "brand": "ValueTech",
+    "stock": 0,
+    "tags": [
+      "budget",
+      "15-inch"
+    ],
+    "rating": 3.9,
+    "active": false,
+    "_id": {
+      "$oid": "b96679b234aa48e5861a1b3f"
+    }
+  }
+]

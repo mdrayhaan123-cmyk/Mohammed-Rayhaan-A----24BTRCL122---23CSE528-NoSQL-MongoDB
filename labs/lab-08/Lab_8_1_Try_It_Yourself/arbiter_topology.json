@@ -1,0 +1,26 @@
+[
+  {
+    "_id": 0,
+    "host": "mongo-rs0-1:27017",
+    "role": "PRIMARY",
+    "arbiterOnly": false,
+    "votes": 1,
+    "stores_data": true
+  },
+  {
+    "_id": 1,
+    "host": "mongo-rs0-2:27018",
+    "role": "SECONDARY",
+    "arbiterOnly": false,
+    "votes": 1,
+    "stores_data": true
+  },
+  {
+    "_id": 2,
+    "host": "mongo-rs0-3:27019",
+    "role": "ARBITER",
+    "arbiterOnly": true,
+    "votes": 1,
+    "stores_data": false
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "message": "Hello from replica set!",
+    "set_name": "rs0",
+    "members": [
+      {
+        "name": "host.docker.internal:27017",
+        "state": "PRIMARY",
+        "health": 1
+      },
+      {
+        "name": "host.docker.internal:27018",
+        "state": "SECONDARY",
+        "health": 1
+      },
+      {
+        "name": "host.docker.internal:27019",
+        "state": "ARBITER",
+        "health": 1
+      }
+    ],
+    "_id": {
+      "$oid": "6a4ff0f7731f4af49bc9f553"
+    }
+  }
+]

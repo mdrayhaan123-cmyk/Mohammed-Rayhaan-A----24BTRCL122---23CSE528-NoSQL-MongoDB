@@ -1,0 +1,44 @@
+services:
+  mongo-rs0-1:
+    image: mongo:7
+    container_name: mongo-rs0-1
+    command: ["--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
+    ports:
+      - "27017:27017"
+    volumes:
+      - rs0_data1:/data/db
+
+  mongo-rs0-2:
+    image: mongo:7
+    container_name: mongo-rs0-2
+    command: ["--replSet", "rs0", "--bind_ip_all", "--port", "27018"]
+    ports:
+      - "27018:27018"
+    volumes:
+      - rs0_data2:/data/db
+
+  mongo-rs0-3:
+    image: mongo:7
+    container_name: mongo-rs0-3
+    command: ["--replSet", "rs0", "--bind_ip_all", "--port", "27019"]
+    ports:
+      - "27019:27019"
+    volumes:
+      - rs0_data3:/data/db
+
+  lab9-runner:
+    build: .
+    container_name: lab9-runner
+    depends_on:
+      - mongo-rs0-1
+      - mongo-rs0-2
+      - mongo-rs0-3
+    environment:
+      - MONGO_URI=mongodb://mongo-rs0-1:27017
+      - REPLICA_SET_URI=mongodb://mongo-rs0-1:27017,mongo-rs0-2:27018,mongo-rs0-3:27019/?replicaSet=rs0
+      - MONGO_DB=lab_9
+
+volumes:
+  rs0_data1:
+  rs0_data2:
+  rs0_data3:

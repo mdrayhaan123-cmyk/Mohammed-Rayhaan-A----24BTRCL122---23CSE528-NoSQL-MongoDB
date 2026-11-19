@@ -1,0 +1,28 @@
+[
+  {
+    "cycle": 1,
+    "timestamp": "2026-11-18T06:36:23.809498+00:00",
+    "cache_used_bytes": 190450301,
+    "hit_ratio_pct": 99.04,
+    "new_reports_found": [
+      "CTI-2026-007",
+      "CTI-2026-008"
+    ],
+    "_id": {
+      "$oid": "63c585cc3a30483bab7293f0"
+    }
+  },
+  {
+    "cycle": 2,
+    "timestamp": "2026-11-18T06:36:24.360202+00:00",
+    "cache_used_bytes": 190450517,
+    "hit_ratio_pct": 99.04,
+    "new_reports_found": [
+      "CTI-2026-007",
+      "CTI-2026-008"
+    ],
+    "_id": {
+      "$oid": "0f5d3825b3d4463bbcfcf85e"
+    }
+  }
+]

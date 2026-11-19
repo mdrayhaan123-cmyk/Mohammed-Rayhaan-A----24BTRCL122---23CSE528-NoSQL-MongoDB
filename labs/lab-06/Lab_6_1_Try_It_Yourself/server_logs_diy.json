@@ -1,0 +1,452 @@
+[
+  {
+    "level": "DEBUG",
+    "service": "inventory-svc",
+    "response_time_ms": 645,
+    "status_code": 404,
+    "_id": {
+      "$oid": "a27f75b46806434aa53d5379"
+    }
+  },
+  {
+    "level": "INFO",
+    "service": "payment-svc",
+    "response_time_ms": 3958,
+    "status_code": 404,
+    "_id": {
+      "$oid": "3616d07fa3ae48b9bb0d298a"
+    }
+  },
+  {
+    "level": "WARN",
+    "service": "inventory-svc",
+    "response_time_ms": 4139,
+    "status_code": 500,
+    "_id": {
+      "$oid": "e15245dd3d5c40f39a540334"
+    }
+  },
+  {
+    "level": "WARN",
+    "service": "api-gateway",
+    "response_time_ms": 1922,
+    "status_code": 201,
+    "_id": {
+      "$oid": "90b69300857f4951b417e9ee"
+    }
+  },
+  {
+    "level": "DEBUG",
+    "service": "payment-svc",
+    "response_time_ms": 3236,
+    "status_code": 201,
+    "_id": {
+      "$oid": "66c4986aff9c4c8a9b3cc340"
+    }
+  },
+  {
+    "level": "DEBUG",
+    "service": "api-gateway",
+    "response_time_ms": 3438,
+    "status_code": 404,
+    "_id": {
+      "$oid": "93df6be8b6254a52bdad6384"
+    }
+  },
+  {
+    "level": "WARN",
+    "service": "api-gateway",
+    "response_time_ms": 2241,
+    "status_code": 500,
+    "_id": {
+      "$oid": "cd033b1a6f40431ea9a77540"
+    }
+  },
+  {
+    "level": "ERROR",
+    "service": "payment-svc",
+    "response_time_ms": 2353,
+    "status_code": 404,
+    "_id": {
+      "$oid": "89d1da26b40d42cbbcad4e0d"
+    }
+  },
+  {
+    "level": "WARN",
+    "service": "inventory-svc",
+    "response_time_ms": 4910,
+    "status_code": 201,
+    "_id": {
+      "$oid": "5a76ed90436049f483d5eec3"
+    }
+  },
+  {
+    "level": "DEBUG",
+    "service": "api-gateway",
+    "response_time_ms": 1450,
+    "status_code": 200,
+    "_id": {
+      "$oid": "26b728b2f59e458fb0ffd1b7"
+    }
+  },
+  {
+    "level": "INFO",
+    "service": "inventory-svc",
+    "response_time_ms": 1022,
+    "status_code": 200,
+    "_id": {
+      "$oid": "5fbf9696e7fb4367b779fc8a"
+    }
+  },
+  {
+    "level": "DEBUG",
+    "service": "inventory-svc",
+    "response_time_ms": 60,
+    "status_code": 400,
+    "_id": {
+      "$oid": "281e787e710747219a806e48"
+    }
+  },
+  {
+    "level": "DEBUG",
+    "service": "api-gateway",
+    "response_time_ms": 3760,
+    "status_code": 201,
+    "_id": {
+      "$oid": "614131760e9545079077755e"
+    }
+  },
+  {
+    "level": "INFO",
+    "service": "api-gateway",
+    "response_time_ms": 1374,
+    "status_code": 201,
+    "_id": {
+      "$oid": "3b8a9faffff24e13b6f80dec"
+    }
+  },
+  {
+    "level": "DEBUG",
+    "service": "payment-svc",
+    "response_time_ms": 3748,
+    "status_code": 500,
+    "_id": {
+      "$oid": "65c2d9ec86d342dc9a89600c"
+    }
+  },
+  {
+    "level": "INFO",
+    "service": "auth-svc",
+    "response_time_ms": 2771,
+    "status_code": 200,
+    "_id": {
+      "$oid": "d1ea94f0ad7a472d94cacda9"
+    }
+  },
+  {
+    "level": "WARN",
+    "service": "api-gateway",
+    "response_time_ms": 4511,
+    "status_code": 500,
+    "_id": {
+      "$oid": "f74f6882c66c4741bfdeac64"
+    }
+  },
+  {
+    "level": "ERROR",
+    "service": "auth-svc",
+    "response_time_ms": 1876,
+    "status_code": 400,
+    "_id": {
+      "$oid": "d55732b9d3d9410fa98ffd5d"
+    }
+  },
+  {
+    "level": "WARN",
+    "service": "inventory-svc",
+    "response_time_ms": 1947,
+    "status_code": 400,
+    "_id": {
+      "$oid": "3a36b112bcfa4246898f6f9d"
+    }
+  },
+  {
+    "level": "INFO",
+    "service": "inventory-svc",
+    "response_time_ms": 4101,
+    "status_code": 200,
+    "_id": {
+      "$oid": "c3cf00b031524f0086b6985a"
+    }
+  },
+  {
+    "level": "DEBUG",
+    "service": "auth-svc",
+    "response_time_ms": 1081,
+    "status_code": 400,
+    "_id": {
+      "$oid": "e4a0548a53d642d59ec7e8b0"
+    }
+  },
+  {
+    "level": "ERROR",
+    "service": "api-gateway",
+    "response_time_ms": 1893,
+    "status_code": 201,
+    "_id": {
+      "$oid": "3c1bbcb4c6b347ab82048c43"
+    }
+  },
+  {
+    "level": "INFO",
+    "service": "payment-svc",
+    "response_time_ms": 45,
+    "status_code": 500,
+    "_id": {
+      "$oid": "8691b50c74cf44e8a5f48c9c"
+    }
+  },
+  {
+    "level": "DEBUG",
+    "service": "inventory-svc",
+    "response_time_ms": 1653,
+    "status_code": 500,
+    "_id": {
+      "$oid": "077401a3af554fc285be4070"
+    }
+  },
+  {
+    "level": "DEBUG",
+    "service": "api-gateway",
+    "response_time_ms": 3012,
+    "status_code": 400,
+    "_id": {
+      "$oid": "fe8dac2a93c94db3afbd1f9e"
+    }
+  },
+  {
+    "level": "ERROR",
+    "service": "api-gateway",
+    "response_time_ms": 2850,
+    "status_code": 500,
+    "_id": {
+      "$oid": "2209a03421d54481bea86efd"
+    }
+  },
+  {
+    "level": "ERROR",
+    "service": "inventory-svc",
+    "response_time_ms": 562,
+    "status_code": 400,
+    "_id": {
+      "$oid": "822a2eb09b5b4e78bc705112"
+    }
+  },
+  {
+    "level": "ERROR",
+    "service": "api-gateway",
+    "response_time_ms": 2952,
+    "status_code": 500,
+    "_id": {
+      "$oid": "850d3b63aee84874a4bde641"
+    }
+  },
+  {
+    "level": "DEBUG",
+    "service": "inventory-svc",
+    "response_time_ms": 3943,
+    "status_code": 200,
+    "_id": {
+      "$oid": "5b961866decc4ef09e359032"
+    }
+  },
+  {
+    "level": "WARN",
+    "service": "api-gateway",
+    "response_time_ms": 3952,
+    "status_code": 404,
+    "_id": {
+      "$oid": "e19799287bc44b23903763a4"
+    }
+  },
+  {
+    "level": "ERROR",
+    "service": "inventory-svc",
+    "response_time_ms": 2715,
+    "status_code": 500,
+    "_id": {
+      "$oid": "5c46847b12af49a8bb295471"
+    }
+  },
+  {
+    "level": "INFO",
+    "service": "payment-svc",
+    "response_time_ms": 2325,
+    "status_code": 200,
+    "_id": {
+      "$oid": "bae207908f1e4a108dff506f"
+    }
+  },
+  {
+    "level": "ERROR",
+    "service": "inventory-svc",
+    "response_time_ms": 797,
+    "status_code": 500,
+    "_id": {
+      "$oid": "40e74f01063e4e4ab74fcae7"
+    }
+  },
+  {
+    "level": "ERROR",
+    "service": "auth-svc",
+    "response_time_ms": 4331,
+    "status_code": 201,
+    "_id": {
+      "$oid": "2cc79052a48e499db8c6513e"
+    }
+  },
+  {
+    "level": "DEBUG",
+    "service": "auth-svc",
+    "response_time_ms": 48,
+    "status_code": 400,
+    "_id": {
+      "$oid": "c7bf6abe09f6473882b05848"
+    }
+  },
+  {
+    "level": "DEBUG",
+    "service": "inventory-svc",
+    "response_time_ms": 2211,
+    "status_code": 200,
+    "_id": {
+      "$oid": "ed66ff917164464f9bcbfbe6"
+    }
+  },
+  {
+    "level": "WARN",
+    "service": "payment-svc",
+    "response_time_ms": 477,
+    "status_code": 200,
+    "_id": {
+      "$oid": "d177b23ed10940118af835df"
+    }
+  },
+  {
+    "level": "ERROR",
+    "service": "api-gateway",
+    "response_time_ms": 1782,
+    "status_code": 200,
+    "_id": {
+      "$oid": "2dbc7f37e8064b66bfbeaa5e"
+    }
+  },
+  {
+    "level": "WARN",
+    "service": "inventory-svc",
+    "response_time_ms": 680,
+    "status_code": 404,
+    "_id": {
+      "$oid": "79a63543edc94228b8d7771b"
+    }
+  },
+  {
+    "level": "DEBUG",
+    "service": "inventory-svc",
+    "response_time_ms": 3155,
+    "status_code": 500,
+    "_id": {
+      "$oid": "3bbfb8f6933f474299e46be3"
+    }
+  },
+  {
+    "level": "INFO",
+    "service": "auth-svc",
+    "response_time_ms": 4505,
+    "status_code": 404,
+    "_id": {
+      "$oid": "a7aff695703647bda0b3a17f"
+    }
+  },
+  {
+    "level": "ERROR",
+    "service": "inventory-svc",
+    "response_time_ms": 4093,
+    "status_code": 500,
+    "_id": {
+      "$oid": "a8a7ddbc11c0446d987479f2"
+    }
+  },
+  {
+    "level": "ERROR",
+    "service": "inventory-svc",
+    "response_time_ms": 308,
+    "status_code": 201,
+    "_id": {
+      "$oid": "2ee53fe227b447b8895c359b"
+    }
+  },
+  {
+    "level": "ERROR",
+    "service": "inventory-svc",
+    "response_time_ms": 1503,
+    "status_code": 400,
+    "_id": {
+      "$oid": "e807fcbf16ab4631ad147873"
+    }
+  },
+  {
+    "level": "DEBUG",
+    "service": "auth-svc",
+    "response_time_ms": 2260,
+    "status_code": 201,
+    "_id": {
+      "$oid": "4dcce44dcff6464293ec5181"
+    }
+  },
+  {
+    "level": "ERROR",
+    "service": "payment-svc",
+    "response_time_ms": 488,
+    "status_code": 500,
+    "_id": {
+      "$oid": "a109b24f66b54b469e3d0a6b"
+    }
+  },
+  {
+    "level": "ERROR",
+    "service": "inventory-svc",
+    "response_time_ms": 2535,
+    "status_code": 404,
+    "_id": {
+      "$oid": "649cbe655d684185a90a9437"
+    }
+  },
+  {
+    "level": "WARN",
+    "service": "inventory-svc",
+    "response_time_ms": 2581,
+    "status_code": 201,
+    "_id": {
+      "$oid": "b5aff7a1013f44aaa4f3d6f0"
+    }
+  },
+  {
+    "level": "WARN",
+    "service": "api-gateway",
+    "response_time_ms": 4714,
+    "status_code": 500,
+    "_id": {
+      "$oid": "b47147482ab84ee3b5bc2290"
+    }
+  },
+  {
+    "level": "ERROR",
+    "service": "auth-svc",
+    "response_time_ms": 3071,
+    "status_code": 400,
+    "_id": {
+      "$oid": "0a6b0018c1a44fd48b158f70"
+    }
+  }
+]

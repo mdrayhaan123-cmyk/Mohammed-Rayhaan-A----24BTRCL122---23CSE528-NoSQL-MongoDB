@@ -1,0 +1,112 @@
+[
+  {
+    "name": "Amazon S3",
+    "family": "Document/Column",
+    "data_model": "Object/Key-Value",
+    "vendor": "AWS",
+    "use_case": "Static asset storage, data lakes, backups",
+    "open_source": false,
+    "_id": {
+      "$oid": "2b632cfcb28443d08837594a"
+    }
+  },
+  {
+    "name": "Couchbase",
+    "family": "Document",
+    "data_model": "JSON Document",
+    "vendor": "Couchbase Inc.",
+    "use_case": "Session management, caching layer, user profiles",
+    "open_source": true,
+    "_id": {
+      "$oid": "10ac27f413984e3bbde028bc"
+    }
+  },
+  {
+    "name": "Apache HBase",
+    "family": "Wide-Column",
+    "data_model": "Column-Family",
+    "vendor": "Apache",
+    "use_case": "Time-series, log aggregation, big data analytics",
+    "open_source": true,
+    "_id": {
+      "$oid": "846540c73936466e9e5d43e3"
+    }
+  },
+  {
+    "name": "Amazon Neptune",
+    "family": "Graph",
+    "data_model": "Property Graph / RDF",
+    "vendor": "AWS",
+    "use_case": "Social networks, recommendation engines, fraud detection",
+    "open_source": false,
+    "_id": {
+      "$oid": "2c1060c8781a4de3a99dfb86"
+    }
+  },
+  {
+    "name": "Memcached",
+    "family": "Key-Value",
+    "data_model": "Key-Value (in-memory)",
+    "vendor": "Open Source",
+    "use_case": "Session caching, database query caching, page caching",
+    "open_source": true,
+    "_id": {
+      "$oid": "70ee834080d54ad5847f2ff7"
+    }
+  },
+  {
+    "name": "Redis",
+    "family": "Key-Value",
+    "data_model": "Key-Value (in-memory, rich data types)",
+    "vendor": "Redis Inc.",
+    "use_case": "Caching, real-time leaderboards, pub/sub messaging",
+    "open_source": true,
+    "_id": {
+      "$oid": "3acab4098b8b4d15b1cee55e"
+    }
+  },
+  {
+    "name": "MongoDB",
+    "family": "Document",
+    "data_model": "BSON Document",
+    "vendor": "MongoDB Inc.",
+    "use_case": "Content management, IoT data, mobile backends, AI platforms",
+    "open_source": true,
+    "_id": {
+      "$oid": "8f89e576e03440ad95bcbc73"
+    }
+  },
+  {
+    "name": "Apache Cassandra",
+    "family": "Wide-Column",
+    "data_model": "Column-Family (partitioned rows)",
+    "vendor": "Apache",
+    "use_case": "Time-series, messaging, global distribution at scale",
+    "open_source": true,
+    "_id": {
+      "$oid": "51732ab391bd4bbd9cd79e5d"
+    }
+  },
+  {
+    "name": "Neo4j",
+    "family": "Graph",
+    "data_model": "Labeled Property Graph",
+    "vendor": "Neo4j Inc.",
+    "use_case": "Knowledge graphs, fraud rings, IT ops, recommendations",
+    "open_source": true,
+    "_id": {
+      "$oid": "d2c5b0afecbe4113acdd5b31"
+    }
+  },
+  {
+    "name": "Elasticsearch",
+    "family": "Search/Document",
+    "data_model": "Inverted Index / JSON Document",
+    "vendor": "Elastic",
+    "use_case": "Full-text search, log analytics, observability",
+    "open_source": true,
+    "_id": {
+      "$oid": "f4da67fba98f49419c02606c"
+    }
+  }
+]

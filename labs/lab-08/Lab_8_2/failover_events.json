@@ -1,0 +1,29 @@
+[
+  {
+    "step": 1,
+    "timestamp": "06:53:37",
+    "connected_primary": "host.docker.internal:27017",
+    "event": "HEARTBEAT",
+    "_id": {
+      "$oid": "3699bcc0a24a4b1991173738"
+    }
+  },
+  {
+    "step": 2,
+    "timestamp": "06:53:38",
+    "connected_primary": "host.docker.internal:27017",
+    "event": "HEARTBEAT",
+    "_id": {
+      "$oid": "07e7c0dc8c6140aa8c56b213"
+    }
+  },
+  {
+    "step": 3,
+    "timestamp": "06:53:38",
+    "connected_primary": "host.docker.internal:27017",
+    "event": "HEARTBEAT",
+    "_id": {
+      "$oid": "b5c73d7965bb46e1a961735a"
+    }
+  }
+]

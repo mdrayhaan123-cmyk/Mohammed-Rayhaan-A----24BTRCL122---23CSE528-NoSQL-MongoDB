@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CTI Sentinel &mdash; Labs 1&ndash;18 Capstone Suite</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: #030712;
+      color: #f8fafc;
+    }
+    code, .font-mono {
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #030712; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    .lab-card-highlight {
+      border-color: #38bdf8 !important;
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45), 0 12px 30px -10px rgba(56, 189, 248, 0.22);
+    }
+    #labsSidebar {
+      transition: width 0.22s ease, transform 0.22s ease, opacity 0.2s ease;
+    }
+    #labsSidebar.sidebar-collapsed {
+      width: 0 !important;
+      min-width: 0 !important;
+      overflow: hidden !important;
+      border-right-width: 0 !important;
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col lg:flex-row bg-[#030712] text-slate-100 overflow-x-hidden">
+
+  <!-- LEFT SIDEBAR: COLLAPSIBLE LABS 1 TO 18 DIRECTORY WITH TOPIC TITLES -->
+  <aside id="labsSidebar" class="w-full lg:w-80 xl:w-[325px] bg-[#060b19] border-b lg:border-b-0 lg:border-r border-slate-800/90 lg:h-screen lg:sticky lg:top-0 flex flex-col flex-shrink-0 z-20">
+    <div class="p-4 border-b border-slate-800/80 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3l7 3v6c0 5-3.5 8.5-7 9-3.5-.5-7-4-7-9V6l7-3z" />
+          </svg>
+        </div>
+        <div>
+          <div class="text-xs font-extrabold tracking-wide uppercase text-white">Labs 1&ndash;18 Index</div>
+          <div class="text-[11px] text-slate-400">Mohammed Rayhaan A &bull; 24BTRCL122</div>
+        </div>
+      </div>
+      <button onclick="toggleSidebar()" title="Close Sidebar" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 border border-slate-700 cursor-pointer">
+        &times; Close
+      </button>
+    </div>
+
+    <div id="sidebarContainer" class="p-2.5 overflow-y-auto space-y-3 max-h-[60vh] lg:max-h-none flex-1"></div>
+  </aside>
+
+  <!-- MAIN CONTENT WORKSPACE -->
+  <div class="flex-1 min-w-0 p-4 sm:p-6 lg:px-8 lg:py-6 max-w-[1440px] mx-auto">
+
+    <!-- TOP HEADER BAR -->
+    <header class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5">
+      <div class="flex items-center gap-3.5">
+        <button id="sidebarToggleBtn" onclick="toggleSidebar()" title="Open / Close Labs 1-18 Sidebar"
+          class="px-3 py-2.5 rounded-xl bg-[#0b1120] hover:bg-slate-800 border border-slate-700/90 text-sky-400 font-bold text-xs sm:text-sm flex items-center gap-2 transition cursor-pointer flex-shrink-0">
+          <span>&#9776;</span>
+          <span>Labs 1&ndash;18</span>
+        </button>
+
+        <div class="w-11 h-11 rounded-xl bg-emerald-500/15 border border-emerald-500/40 flex items-center justify-center flex-shrink-0">
+          <svg class="w-6 h-6 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3l7 3v6c0 5-3.5 8.5-7 9-3.5-.5-7-4-7-9V6l7-3z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4" />
+          </svg>
+        </div>
+        <div>
+          <div class="flex flex-wrap items-center gap-2.5">
+            <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight text-white">CTI Sentinel</h1>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wide bg-emerald-950/90 text-emerald-400 border border-emerald-700/60">
+              LABS 1-18 CAPSTONE SUITE
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-400 mt-0.5">Cyber Threat Intelligence &amp; Distributed MongoDB Telemetry Platform</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-3">
+        <div id="connBadge" class="px-3.5 py-2 rounded-full bg-[#0b1120] border border-slate-800 text-xs font-medium text-slate-300 flex items-center gap-2">
+          <span id="connDot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span id="connLabel">Laptop Dataset Ready</span>
+        </div>
+        <button onclick="downloadHtmlFile()" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-[0.99] text-slate-950 font-bold text-xs sm:text-sm flex items-center gap-2 transition shadow-lg shadow-emerald-500/15 cursor-pointer">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" />
+          </svg>
+          Download index.html
+        </button>
+      </div>
+    </header>
+
+    <!-- TOP 6 KPI CARDS -->
+    <section class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3 mb-6">
+      <div class="bg-[#0b1120] border border-slate-800/90 rounded-2xl p-4">
+        <div class="text-[11px] font-semibold tracking-wider uppercase text-slate-400">CTI Reports</div>
+        <div id="kpiReportsCount" class="text-2xl font-extrabold text-white mt-1.5">6</div>
+        <div class="text-xs text-emerald-400 mt-1">Labs 2&ndash;5 CRUD/Agg</div>
+      </div>
+      <div class="bg-[#0b1120] border border-slate-800/90 rounded-2xl p-4">
+        <div class="text-[11px] font-semibold tracking-wider uppercase text-slate-400">Avg BSON Size</div>
+        <div id="kpiAvgBson" class="text-2xl font-extrabold text-sky-400 mt-1.5">564 B</div>
+        <div class="text-xs text-slate-400 mt-1">Limit: 16.00 MB</div>
+      </div>
+      <div class="bg-[#0b1120] border border-slate-800/90 rounded-2xl p-4">
+        <div class="text-[11px] font-semibold tracking-wider uppercase text-slate-400">WiredTiger Cache</div>
+        <div id="kpiWtCache" class="text-2xl font-extrabold text-emerald-400 mt-1.5">95.9%</div>
+        <div class="text-xs text-slate-400 mt-1">Lab 7 Working Set</div>
+      </div>
+      <div class="bg-[#0b1120] border border-slate-800/90 rounded-2xl p-4">
+        <div class="text-[11px] font-semibold tracking-wider uppercase text-slate-400">Replica Set RS0</div>
+        <div id="kpiRsStatus" class="text-2xl font-extrabold text-fuchsia-400 mt-1.5">3 / 3 UP</div>
+        <div class="text-xs text-slate-400 mt-1">Lab 8&ndash;9 HA Cluster</div>
+      </div>
+      <div class="bg-[#0b1120] border border-slate-800/90 rounded-2xl p-4">
+        <div class="text-[11px] font-semibold tracking-wider uppercase text-slate-400">ACID TXN Rollbacks</div>
+        <div class="text-2xl font-extrabold text-amber-400 mt-1.5">100% Safe</div>
+        <div class="text-xs text-slate-400 mt-1">Lab 10.1&ndash;10.2</div>
+      </div>
+      <div class="bg-[#0b1120] border border-slate-800/90 rounded-2xl p-4">
+        <div class="text-[11px] font-semibold tracking-wider uppercase text-slate-400">Docker Hub Tag</div>
+        <div class="text-base font-bold font-mono text-sky-400 mt-2 truncate" title="nosql-lab-18:latest">nosql-lab-18:late...</div>
+        <div class="text-xs text-slate-400 mt-1">rayhaan369</div>
+      </div>
+    </section>
+
+    <!-- 6 PILL NAVIGATION TABS -->
+    <nav class="flex flex-wrap gap-2.5 mb-6" aria-label="Dashboard Tabs">
+      <button id="tab-pill-1" onclick="switchTab(1)" class="tab-pill px-4 py-2.5 rounded-full text-xs sm:text-sm font-medium bg-[#0b1120] border border-slate-800 text-slate-200 hover:border-sky-500/60 transition cursor-pointer">
+        1. Overview &amp; Threat Feed
+      </button>
+      <button id="tab-pill-2" onclick="switchTab(2)" class="tab-pill px-4 py-2.5 rounded-full text-xs sm:text-sm font-medium bg-[#0b1120] border border-slate-800 text-slate-200 hover:border-sky-500/60 transition cursor-pointer">
+        2. Labs 1&ndash;6: Schema &amp; Indexes
+      </button>
+      <button id="tab-pill-3" onclick="switchTab(3)" class="tab-pill px-4 py-2.5 rounded-full text-xs sm:text-sm font-medium bg-[#0b1120] border border-slate-800 text-slate-200 hover:border-sky-500/60 transition cursor-pointer">
+        3. Lab 7: BSON &amp; Cache
+      </button>
+      <button id="tab-pill-4" onclick="switchTab(4)" class="tab-pill px-4 py-2.5 rounded-full text-xs sm:text-sm font-medium bg-[#0b1120] border border-slate-800 text-slate-200 hover:border-sky-500/60 transition cursor-pointer">
+        4. Lab 8: Replica Set rs0
+      </button>
+      <button id="tab-pill-5" onclick="switchTab(5)" class="tab-pill px-4 py-2.5 rounded-full text-xs sm:text-sm font-medium bg-[#0b1120] border border-slate-800 text-slate-200 hover:border-sky-500/60 transition cursor-pointer">
+        5. Lab 9: Docker &amp; CAP
+      </button>
+      <button id="tab-pill-6" onclick="switchTab(6)" class="tab-pill px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-emerald-950/80 border border-emerald-600/80 text-emerald-300 flex items-center gap-2 transition cursor-pointer">
+        6. Labs 10&ndash;18: ACID, Sharding, Security, K8s, SRE, SaaS, Polyglot, RAG &amp; False-Positive Capstone
+        <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 border border-emerald-500/40 text-[10px] font-extrabold text-emerald-300">NEW</span>
+      </button>
+    </nav>
+
+    <!-- TAB 1: OVERVIEW & THREAT FEED -->
+    <div id="view-1" class="tab-view grid grid-cols-1 xl:grid-cols-12 gap-6">
+      <div class="xl:col-span-8 space-y-4">
+        <div class="bg-[#0b1120] border border-slate-800/90 rounded-2xl p-3.5 flex flex-col sm:flex-row gap-3">
+          <input id="ctiSearchInput" oninput="renderThreatCards()" type="text" placeholder="Search IOC IP, domain, CVE, or tag..."
+            class="flex-1 bg-[#030712] border border-slate-800 focus:border-sky-500 focus:outline-none rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white placeholder-slate-500" />
+          <select id="ctiSeverityFilter" onchange="renderThreatCards()"
+            class="bg-[#030712] border border-slate-800 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-slate-200">
+            <option value="ALL">All Severities</option>
+            <option value="Critical">Critical</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+          <select id="ctiCategoryFilter" onchange="renderThreatCards()"
+            class="bg-[#030712] border border-slate-800 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-slate-200">
+            <option value="ALL">All Categories</option>
+            <option value="Ransomware">Ransomware</option>
+            <option value="Supply Chain">Supply Chain</option>
+            <option value="Phishing">Phishing</option>
+            <option value="Reconnaissance">Reconnaissance</option>
+          </select>
+        </div>
+        <div id="ctiCardsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+      </div>
+
+      <div class="xl:col-span-4">
+        <div class="bg-[#0b1120] border border-slate-800/90 rounded-2xl p-5 sticky top-6">
+          <div class="flex items-start justify-between gap-2 mb-2">
+            <h2 class="text-base sm:text-lg font-bold text-white leading-snug">Ingest CTI Threat<br/>Document</h2>
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-950/90 border border-emerald-700/60 text-[11px] font-mono font-semibold text-emerald-400">
+              JSON Schema<br/>Validated
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 mb-4">
+            Inserts an embedded threat report with dynamic <code class="text-sky-400">$bsonSize</code> calculation into <code class="text-sky-400">lab_7.threat_reports</code>.
+          </p>
+          <form onsubmit="handleIngestReport(event)" class="space-y-3.5">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Report Title</label>
+              <input id="ingestTitle" type="text" required placeholder="e.g., Kubernetes RBAC Privilege Escalation"
+                class="w-full bg-[#030712] border border-slate-800 focus:border-emerald-500 focus:outline-none rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white placeholder-slate-500" />
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Category</label>
+                <select id="ingestCategory" class="w-full bg-[#030712] border border-slate-800 rounded-xl px-3 py-2 text-xs sm:text-sm text-white">
+                  <option value="Ransomware">Ransomware</option>
+                  <option value="Supply Chain">Supply Chain</option>
+                  <option value="Phishing">Phishing</option>
+                  <option value="Reconnaissance">Reconnaissance</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Severity</label>
+                <select id="ingestSeverity" class="w-full bg-[#030712] border border-slate-800 rounded-xl px-3 py-2 text-xs sm:text-sm text-white">
+                  <option value="Critical">Critical</option>
+                  <option value="High">High</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Low">Low</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Primary IOC (IP / Domain / Hash)</label>
+              <input id="ingestIoc" type="text" required placeholder="e.g., 45.133.1.98"
+                class="w-full bg-[#030712] border border-slate-800 focus:border-emerald-500 focus:outline-none rounded-xl px-3.5 py-2 text-xs sm:text-sm font-mono text-white placeholder-slate-500" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Summary</label>
+              <textarea id="ingestSummary" rows="3" required placeholder="Brief TTP and impact summary..."
+                class="w-full bg-[#030712] border border-slate-800 focus:border-emerald-500 focus:outline-none rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white placeholder-slate-500"></textarea>
+            </div>
+            <button type="submit" class="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm transition cursor-pointer shadow-lg shadow-emerald-500/15">
+              + Insert BSON Report
+            </button>
+          </form>
+          <div id="ingestToast" class="hidden mt-3 px-3 py-2 rounded-xl bg-emerald-950/90 border border-emerald-700/60 text-xs text-emerald-300 font-medium"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: LABS 1 TO 6 -->
+    <div id="view-2" class="tab-view hidden grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div id="lab-card-1" class="bg-[#0b1120] border border-slate-800 rounded-2xl p-5 transition">
+        <div class="flex items-center justify-between mb-2">
+          <span class="px-2.5 py-0.5 rounded-md bg-sky-950 text-sky-400 font-mono text-xs font-bold border border-sky-800/60">LAB 1</span>
+          <a href="https://hub.docker.com/r/rayhaan369/nosql-lab-1" target="_blank" class="text-xs font-mono text-slate-400 hover:text-sky-400">rayhaan369/nosql-lab-1 &nearr;</a>
+        </div>
+        <h3 class="text-base font-bold text-white">MongoDB Setup, BSON Documents &amp; CRUD Operations</h3>
+        <p class="text-xs text-slate-400 mt-1">Core document provisioning, projections, atomic field mutations (<code>$set</code>, <code>$inc</code>, <code>$push</code>), and safe deletion in <code>lab_1</code>.</p>
+        <div class="mt-4 grid grid-cols-3 gap-2 text-center">
+          <div class="bg-[#060b16] border border-slate-800 rounded-xl p-2.5"><div class="text-[10px] text-slate-400 uppercase">Database</div><div class="text-xs font-bold font-mono text-white mt-0.5">lab_1</div></div>
+          <div class="bg-[#060b16] border border-slate-800 rounded-xl p-2.5"><div class="text-[10px] text-slate-400 uppercase">Write Concern</div><div class="text-xs font-bold font-mono text-emerald-400 mt-0.5">w: majority</div></div>
+          <div class="bg-[#060b16] border border-slate-800 rounded-xl p-2.5"><div class="text-[10px] text-slate-400 uppercase">Status</div><div class="text-xs font-bold text-emerald-400 mt-0.5">Verified</div></div>
+        </div>
+      </div>
+
+      <div id="lab-card-2" class="bg-[#0b1120] border border-slate-800 rounded-2xl p-5 transition">
+        <div class="flex items-center justify-between mb-2">
+          <span class="px-2.5 py-0.5 rounded-md bg-sky-950 text-sky-400 font-mono text-xs font-bold border border-sky-800/60">LAB 2</span>
+          <a href="https://hub.docker.com/r/rayhaan369/nosql-lab-2" target="_blank" class="text-xs font-mono text-slate-400 hover:text-sky-400">rayhaan369/nosql-lab-2 &nearr;</a>
+        </div>
+        <h3 class="text-base font-bold text-white">Advanced Query Operators &amp; Array Matching</h3>
+        <p class="text-xs text-slate-400 mt-1">Evaluates comparison (<code>$gt</code>, <code>$in</code>), logical (<code>$and</code>, <code>$or</code>), and embedded array filters (<code>$elemMatch</code>, <code>$all</code>) in <code>lab_2</code>.</p>
+        <div class="mt-4 grid grid-cols-3 gap-2 text-center">
+          <div class="bg-[#060b16] border border-slate-800 rounded-xl p-2.5"><div class="text-[10px] text-slate-400 uppercase">Operators</div><div class="text-xs font-bold font-mono text-sky-400 mt-0.5">$in / $elemMatch</div></div>
+          <div class="bg-[#060b16] border border-slate-800 rounded-xl p-2.5"><div class="text-[10px] text-slate-400 uppercase">Projection</div><div class="text-xs font-bold font-mono text-white mt-0.5">Covered Fields</div></div>
+          <div class="bg-[#060b16] border border-slate-800 rounded-xl p-2.5"><div class="text-[10px] text-slate-400 uppercase">Status</div><div class="text-xs font-bold text-emerald-400 mt-0.5">Verified</div></div>
+        </div>
+      </div>
+
+      <div id="lab-card-3" class="bg-[#0b1120] border border-slate-800 rounded-2xl p-5 transition">
+        <div class="flex items-center justify-between mb-2">
+          <span class="px-2.5 py-0.5 rounded-md bg-sky-950 text-sky-400 font-mono text-xs font-bold border border-sky-800/60">LAB 3</span>
+          <a href="https://hub.docker.com/r/rayhaan369/nosql-lab-3" target="_blank" class="text-xs font-mono text-slate-400 hover:text-sky-400">rayhaan369/nosql-lab-3 &nearr;</a>
+        </div>
+        <h3 class="text-base font-bold text-white">Data Modeling: Embedding vs. Referencing</h3>
+        <p class="text-xs text-slate-400 mt-1">Compares 1:Few bounded subdocuments against 1:Millions normalized references to avoid the 16 MB BSON limit in <code>lab_3</code>.</p>
+        <div class="mt-4 grid grid-cols-2 gap-2.5">
+          <div class="bg-[#060b16] border border-slate-800 rounded-xl p-3"><div class="text-[11px] font-bold text-emerald-400">Embedded Pattern</div><div class="text-xs text-slate-400 mt-0.5">Single atomic read for bounded child arrays</div></div>
+          <div class="bg-[#060b16] border border-slate-800 rounded-xl p-3"><div class="text-[11px] font-bold text-sky-400">Referenced Pattern</div><div class="text-xs text-slate-400 mt-0.5">Unbounded audit events linked via indexed keys</div></div>
+        </div>
+      </div>
+
+      <div id="lab-card-4" class="bg-[#0b1120] border border-slate-800 rounded-2xl p-5 transition">
+        <div class="flex items-center justify-between mb-2">
+          <span class="px-2.5 py-0.5 rounded-md bg-sky-950 text-sky-400 font-mono text-xs font-bold border border-sky-800/60">LAB 4</span>
+          <a href="https://hub.docker.com/r/rayhaan369/nosql-lab-4" target="_blank" class="text-xs font-mono text-slate-400 hover:text-sky-400">rayhaan369/nosql-lab-4 &nearr;</a>
+        </div>
+        <h3 class="text-base font-bold text-white">Aggregation Pipelines ($match, $group, $lookup)</h3>
+        <p class="text-xs text-slate-400 mt-1">Multi-stage analytical pipelines aggregating threat counts per feed, top targeted hosts, and cross-collection joins in <code>lab_4</code>.</p>
+        <div class="mt-4 flex flex-wrap gap-2 text-xs font-mono">
+          <span class="px-2.5 py-1 rounded-lg bg-[#060b16] border border-slate-800 text-sky-400">$match</span>
+          <span class="px-2.5 py-1 rounded-lg bg-[#060b16] border border-slate-800 text-emerald-400">$unwind</span>
+          <span class="px-2.5 py-1 rounded-lg bg-[#060b16] border border-slate-800 text-amber-400">$group</span>
+          <span class="px-2.5 py-1 rounded-lg bg-[#060b16] border border-slate-800 text-fuchsia-400">$lookup</span>
+        </div>
+      </div>
+
+      <div id="lab-card-5" class="bg-[#0b1120] border border-slate-800 rounded-2xl p-5 transition">
+        <div class="flex items-center justify-between mb-2">
+          <span class="px-2.5 py-0.5 rounded-md bg-sky-950 text-sky-400 font-mono text-xs font-bold border border-sky-800/60">LAB 5</span>
+          <a href="https://hub.docker.com/r/rayhaan369/nosql-lab-5" target="_blank" class="text-xs font-mono text-slate-400 hover:text-sky-400">rayhaan369/nosql-lab-5 &nearr;</a>
+        </div>
+        <h3 class="text-base font-bold text-white">Compound Indexes, ESR Rule &amp; explain() Plans</h3>
+        <p class="text-xs text-slate-400 mt-1">Equality-Sort-Range compound index tuning reducing full <code>COLLSCAN</code> execution down to covered <code>IXSCAN</code> in <code>lab_5</code>.</p>
+        <div class="mt-4 space-y-2 text-xs">
+          <div class="flex justify-between"><span>COLLSCAN (Unindexed 100k docs)</span><span class="font-mono text-rose-400">64.8 ms</span></div>
+          <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden"><div class="w-full h-full bg-rose-500"></div></div>
+          <div class="flex justify-between"><span>IXSCAN (ESR Compound Index)</span><span class="font-mono text-emerald-400">1.24 ms (52x faster)</span></div>
+          <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden"><div class="w-[4%] h-full bg-emerald-400"></div></div>
+        </div>
+      </div>
+
+      <div id="lab-card-6" class="bg-[#0b1120] border border-slate-800 rounded-2xl p-5 transition">
+        <div class="flex items-center justify-between mb-2">
+          <span class="px-2.5 py-0.5 rounded-md bg-sky-950 text-sky-400 font-mono text-xs font-bold border border-sky-800/60">LAB 6</span>
+          <a href="https://hub.docker.com/r/rayhaan369/nosql-lab-6" target="_blank" class="text-xs font-mono text-slate-400 hover:text-sky-400">rayhaan369/nosql-lab-6 &nearr;</a>
+        </div>
+        <h3 class="text-base font-bold text-white">Geospatial Queries &amp; 2dsphere Proximity</h3>
+        <p class="text-xs text-slate-400 mt-1">GeoJSON Point &amp; Polygon modeling with <code>$near</code>, <code>$geoWithin</code>, and 17 spatial/compound indexes verified in <code>lab_6</code>.</p>
+        <div class="mt-4 grid grid-cols-3 gap-2 text-center">
+          <div class="bg-[#060b16] border border-slate-800 rounded-xl p-2.5"><div class="text-[10px] text-slate-400 uppercase">Index Type</div><div class="text-xs font-bold font-mono text-sky-400 mt-0.5">2dsphere</div></div>
+          <div class="bg-[#060b16] border border-slate-800 rounded-xl p-2.5"><div class="text-[10px] text-slate-400 uppercase">Active Indexes</div><div class="text-xs font-bold text-white mt-0.5">17 Verified</div></div>
+          <div class="bg-[#060b16] border border-slate-800 rounded-xl p-2.5"><div class="text-[10px] text-slate-400 uppercase">Operators</div><div class="text-xs font-bold font-mono text-emerald-400 mt-0.5">$near / $geoWithin</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: LAB 7 -->
+    <div id="view-3" class="tab-view hidden">
+      <div id="lab-card-7" class="bg-[#0b1120] border border-slate-800 rounded-2xl p-6 transition">
+        <div class="flex items-center justify-between mb-3">
+          <span class="px-2.5 py-0.5 rounded-md bg-sky-950 text-sky-400 font-mono text-xs font-bold border border-sky-800/60">LAB 7</span>
+          <a href="https://hub.docker.com/r/rayhaan369/nosql-lab-7" target="_blank" class="text-xs font-mono text-slate-400 hover:text-sky-400">rayhaan369/nosql-lab-7 &nearr;</a>
+        </div>
+        <h3 class="text-lg font-bold text-white">CTI Sentinel BSON Storage &amp; WiredTiger Working Set Cache</h3>
+        <p class="text-sm text-slate-400 mt-1">Analyzes 187.61 MB of threat intelligence documents in <code>lab_7</code> with a 564-byte average BSON footprint and a 95.9% WiredTiger cache hit ratio.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-5">
+          <div class="bg-[#060b16] border border-slate-800 rounded-xl p-4"><div class="text-xs text-slate-400">Dataset Footprint</div><div class="text-xl font-extrabold text-white mt-1">187.61 MB</div></div>
+          <div class="bg-[#060b16] border border-slate-800 rounded-xl p-4"><div class="text-xs text-slate-400">Average $bsonSize</div><div class="text-xl font-extrabold text-sky-400 mt-1">564 Bytes</div></div>
+          <div class="bg-[#060b16] border border-slate-800 rounded-xl p-4"><div class="text-xs text-slate-400">WiredTiger Hit Ratio</div><div class="text-xl font-extrabold text-emerald-400 mt-1">95.9%</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: LAB 8 -->
+    <div id="view-4" class="tab-view hidden">
+      <div id="lab-card-8" class="bg-[#0b1120] border border-slate-800 rounded-2xl p-6 transition">
+        <div class="flex items-center justify-between mb-3">
+          <span class="px-2.5 py-0.5 rounded-md bg-fuchsia-950 text-fuchsia-300 font-mono text-xs font-bold border border-fuchsia-800/60">LAB 8</span>
+          <a href="https://hub.docker.com/r/rayhaan369/nosql-lab-8" target="_blank" class="text-xs font-mono text-slate-400 hover:text-sky-400">rayhaan369/nosql-lab-8 &nearr;</a>
+        </div>
+        <h3 class="text-lg font-bold text-white">Replica Set rs0 (3/3 UP), Raft Failover &amp; Time-Series Telemetry</h3>
+        <p class="text-sm text-slate-400 mt-1">3-node PSS Replica Set (<code>rs0</code>) with sub-10s automatic primary election, oplog tailing, and bucketed Time-Series collections in <code>lab_8</code>.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-5">
+          <div class="bg-[#060b16] border border-emerald-800/60 rounded-xl p-4"><div class="text-xs font-mono text-emerald-400 font-bold">mongo-rs0-1:27017</div><div class="text-base font-extrabold text-white mt-1">PRIMARY (Healthy)</div><div class="text-xs text-slate-400 mt-0.5">Priority: 2 &bull; Oplog Synced</div></div>
+          <div class="bg-[#060b16] border border-slate-800 rounded-xl p-4"><div class="text-xs font-mono text-sky-400 font-bold">mongo-rs0-2:27018</div><div class="text-base font-extrabold text-white mt-1">SECONDARY (Healthy)</div><div class="text-xs text-slate-400 mt-0.5">Priority: 1 &bull; Lag: 0 ms</div></div>
+          <div class="bg-[#060b16] border border-slate-800 rounded-xl p-4"><div class="text-xs font-mono text-sky-400 font-bold">mongo-rs0-3:27019</div><div class="text-base font-extrabold text-white mt-1">SECONDARY (Healthy)</div><div class="text-xs text-slate-400 mt-0.5">Priority: 1 &bull; Lag: 0 ms</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: LAB 9 -->
+    <div id="view-5" class="tab-view hidden">
+      <div id="lab-card-9" class="bg-[#0b1120] border border-slate-800 rounded-2xl p-6 transition">
+        <div class="flex items-center justify-between mb-3">
+          <span class="px-2.5 py-0.5 rounded-md bg-sky-950 text-sky-400 font-mono text-xs font-bold border border-sky-800/60">LAB 9</span>
+          <a href="https://hub.docker.com/r/rayhaan369/nosql-lab-9" target="_blank" class="text-xs font-mono text-slate-400 hover:text-sky-400">rayhaan369/nosql-lab-9 &nearr;</a>
+        </div>
+        <h3 class="text-lg font-bold text-white">Docker Containerization, Change Streams &amp; CAP Trade-Offs</h3>
+        <p class="text-sm text-slate-400 mt-1">Real-time <code>watch()</code> Change Stream pipelines reacting to critical alerts and enforcing CP majority consistency during network partitions in <code>lab_9</code>.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
+          <div class="bg-[#060b16] border border-slate-800 rounded-xl p-4"><div class="text-xs font-bold text-sky-400 uppercase">CAP Classification</div><div class="text-lg font-extrabold text-white mt-1">CP (Consistent &amp; Partition-Tolerant)</div><div class="text-xs text-slate-400 mt-1">Minority partition steps down primary to prevent split-brain stale writes.</div></div>
+          <div class="bg-[#060b16] border border-slate-800 rounded-xl p-4"><div class="text-xs font-bold text-emerald-400 uppercase">Change Stream Pipeline</div><div class="text-lg font-extrabold text-white mt-1">Real-Time Oplog Triggers</div><div class="text-xs text-slate-400 mt-1">Resumable <code>resumeToken</code> cursor streams insert/update events with sub-5ms latency.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 6: LABS 10&ndash;18 INTERACTIVE CAPSTONE SUITE -->
+    <div id="view-6" class="tab-view hidden space-y-6">
+
+      <!-- LAB 10 -->
+      <section id="lab-card-10" class="grid grid-cols-1 xl:grid-cols-12 gap-5 bg-[#0b1120] border border-slate-800 rounded-2xl p-5 transition">
+        <div class="xl:col-span-8 space-y-4">
+          <div class="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <h2 class="text-lg font-bold text-white">Lab 10.1: Multi-Document ACID Bank Transfer Simulator</h2>
+              <p class="text-xs text-slate-400 mt-0.5">Executes debit, credit, and <code class="text-sky-400">transfer_history</code> audit insert inside <code class="text-sky-400">session.start_transaction()</code>.</p>
+            </div>
+            <button onclick="resetAcid()" class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 border border-slate-700 cursor-pointer">
+              Reset Balances
+            </button>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="bg-[#060b16] border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+              <div>
+                <div class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Source Account</div>
+                <div class="text-lg font-extrabold text-white mt-0.5">ACC-1001</div>
+                <div id="acc1Ver" class="text-xs font-mono text-sky-400 mt-1">version: 1</div>
+              </div>
+              <div class="text-right">
+                <div class="text-xs text-slate-400">Balance</div>
+                <div id="acc1Bal" class="text-2xl font-extrabold font-mono text-emerald-400 mt-0.5">$1,000.00</div>
+              </div>
+            </div>
+            <div class="bg-[#060b16] border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+              <div>
+                <div class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Destination Account</div>
+                <div class="text-lg font-extrabold text-white mt-0.5">ACC-1002</div>
+                <div id="acc2Ver" class="text-xs font-mono text-sky-400 mt-1">version: 1</div>
+              </div>
+              <div class="text-right">
+                <div class="text-xs text-slate-400">Balance</div>
+                <div id="acc2Bal" class="text-2xl font-extrabold font-mono text-emerald-400 mt-0.5">$500.00</div>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-3">
+            <label class="text-xs font-semibold text-slate-300">Amount ($):</label>
+            <input id="acidAmount" type="number" value="250" min="1" class="w-28 bg-[#030712] border border-slate-700 rounded-lg px-3 py-2 text-sm font-mono text-white" />
+            <button onclick="runAcidTransfer(false)" class="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm cursor-pointer">
+              Execute Valid Transfer
+            </button>
+            <button onclick="runAcidTransfer(true)" class="px-4 py-2 rounded-lg bg-rose-950/90 hover:bg-rose-900 text-rose-200 border border-rose-700/70 font-semibold text-xs sm:text-sm cursor-pointer">
+              Test Insufficient Funds ($2,000)
+            </button>
+          </div>
+          <div>
+            <button onclick="runTransientRetry()" class="px-4 py-2 rounded-lg bg-amber-950/70 hover:bg-amber-900/70 text-amber-300 border border-amber-700/60 font-semibold text-xs cursor-pointer">
+              Simulate TransientTransactionError + Backoff
+            </button>
+          </div>
+          <div id="acidStatusBanner" class="bg-[#060b16] border border-slate-800 rounded-xl p-3.5 text-xs font-mono space-y-1 text-sky-300">
+            <div>[Session] start_transaction() on rs0</div>
+            <div class="text-slate-400">[Ready] Execute a valid transfer or test atomic rollback on insufficient funds.</div>
+          </div>
+        </div>
+        <div class="xl:col-span-4 bg-[#060b16] border border-slate-800 rounded-xl p-4 flex flex-col">
+          <div class="flex items-center justify-between mb-1">
+            <h3 class="text-sm font-bold text-emerald-400 font-mono">transfer_history Audit Log</h3>
+            <span id="acidTxnBadge" class="px-2 py-0.5 rounded bg-slate-800 text-xs font-mono text-slate-300">0 txns</span>
+          </div>
+          <p class="text-xs text-slate-400 mb-3">Verifies atomicity: rolled-back transactions leave zero partial balance mutations.</p>
+          <div id="acidAuditFeed" class="flex-1 bg-[#030712] border border-slate-800/90 rounded-lg p-3 text-xs font-mono text-slate-400 overflow-y-auto max-h-64">
+            No transfers executed yet.
+          </div>
+        </div>
+      </section>
+
+      <!-- LAB 11 -->
+      <section id="lab-card-11" class="bg-[#0b1120] border border-slate-800 rounded-2xl p-5 transition space-y-4">
+        <div class="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 font-mono text-[11px] font-bold border border-emerald-700/50">LAB 11 &bull; LIVE LAPTOP ANALYSIS</span>
+              <h3 class="text-base sm:text-lg font-bold text-white">Horizontal Sharding, Shard Key Cardinality &amp; Chunk Distribution</h3>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">Analyzes chunk balance across 3 shards and compares targeted single-shard routing vs. scatter-gather queries on <code>lab_11</code>.</p>
+          </div>
+          <a href="https://hub.docker.com/r/rayhaan369/nosql-lab-11" target="_blank" class="text-xs font-mono text-sky-400 hover:underline">rayhaan369/nosql-lab-11 &nearr;</a>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <select id="l11Strategy" onchange="renderLab11()" class="bg-[#030712] border border-slate-700 rounded-lg px-3 py-2 text-xs sm:text-sm text-white">
+            <option value="hashed">Shard Key: { tenant_id: "hashed" } &mdash; Even Write Distribution</option>
+            <option value="ranged">Shard Key: { timestamp: 1 } &mdash; Monotonic Range Locality</option>
+          </select>
+          <button onclick="renderLab11()" class="px-4 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs sm:text-sm cursor-pointer">
+            Analyze Shard Routing
+          </button>
+        </div>
+        <div id="l11Cards" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div>
+        <div id="l11Verdict" class="bg-[#060b16] border border-slate-800 rounded-xl p-3.5 text-xs text-slate-300"></div>
+      </section>
+
+      <!-- LAB 12 -->
+      <section id="lab-card-12" class="bg-[#0b1120] border border-slate-800 rounded-2xl p-5 transition space-y-4">
+        <div class="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 font-mono text-[11px] font-bold border border-emerald-700/50">LAB 12 &bull; LIVE LAPTOP ANALYSIS</span>
+              <h3 class="text-base sm:text-lg font-bold text-white">JSON Schema Validation ($jsonSchema) &amp; Data Governance</h3>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">Validates BSON types, email regex, age bounds (18&ndash;120), and severity enums before committing to <code>lab_12</code>.</p>
+          </div>
+          <a href="https://hub.docker.com/r/rayhaan369/nosql-lab-12" target="_blank" class="text-xs font-mono text-sky-400 hover:underline">rayhaan369/nosql-lab-12 &nearr;</a>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <input id="l12Email" type="text" value="rayhaan.soc@corp.com" placeholder="Analyst Email" class="bg-[#030712] border border-slate-700 rounded-lg px-3 py-2 text-xs sm:text-sm text-white min-w-[210px]" />
+          <input id="l12Age" type="number" value="22" placeholder="Age (18-120)" class="w-28 bg-[#030712] border border-slate-700 rounded-lg px-3 py-2 text-xs sm:text-sm text-white" />
+          <select id="l12Severity" class="bg-[#030712] border border-slate-700 rounded-lg px-3 py-2 text-xs sm:text-sm text-white">
+            <option value="HIGH">Severity: HIGH (Valid Enum)</option>
+            <option value="CRITICAL">Severity: CRITICAL (Valid Enum)</option>
+            <option value="INVALID_LVL">Severity: INVALID_LVL (Trigger Reject)</option>
+          </select>
+          <button onclick="renderLab12()" class="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm cursor-pointer">
+            Run Schema Validation
+          </button>
+        </div>
+        <div id="l12ResultCards" class="grid grid-cols-1 sm:grid-cols-4 gap-3"></div>
+      </section>
+
+      <!-- LAB 13 -->
+      <section id="lab-card-13" class="bg-[#0b1120] border border-slate-800 rounded-2xl p-5 transition space-y-4">
+        <div class="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 font-mono text-[11px] font-bold border border-emerald-700/50">LAB 13 &bull; LIVE LAPTOP ANALYSIS</span>
+              <h3 class="text-base sm:text-lg font-bold text-white">Security Hardening, Least-Privilege RBAC &amp; Field-Level Encryption</h3>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">Simulates RBAC projection views and Client-Side Field-Level Encryption (CSFLE) masking across <code>lab_13</code>.</p>
+          </div>
+          <a href="https://hub.docker.com/r/rayhaan369/nosql-lab-13" target="_blank" class="text-xs font-mono text-sky-400 hover:underline">rayhaan369/nosql-lab-13 &nearr;</a>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <select id="l13Role" onchange="renderLab13()" class="bg-[#030712] border border-slate-700 rounded-lg px-3 py-2 text-xs sm:text-sm text-white">
+            <option value="readOnlyAnalyst">Role: readOnlyAnalyst (Read-Only, PII Ciphertext Masked)</option>
+            <option value="socResponder">Role: socResponder (Read + Update Alerts, PII Masked)</option>
+            <option value="securityAdmin">Role: securityAdmin (Full Admin + CSFLE Key Decryption)</option>
+          </select>
+          <button onclick="renderLab13()" class="px-4 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs sm:text-sm cursor-pointer">
+            Inspect Role Projection
+          </button>
+        </div>
+        <div id="l13TableWrap" class="overflow-x-auto"></div>
+      </section>
+
+      <!-- LAB 14 -->
+      <section id="lab-card-14" class="bg-[#0b1120] border border-slate-800 rounded-2xl p-5 transition space-y-4">
+        <div class="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 font-mono text-[11px] font-bold border border-emerald-700/50">LAB 14 &bull; LIVE LAPTOP ANALYSIS</span>
+              <h3 class="text-base sm:text-lg font-bold text-white">Observability (serverStatus), Webhook Threshold Alerts &amp; Backup RPO/RTO</h3>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">Evaluates live MongoDB <code>serverStatus</code> cache hit ratios against SLA alert thresholds and compares backup RPO/RTO tiers in <code>lab_14</code>.</p>
+          </div>
+          <a href="https://hub.docker.com/r/rayhaan369/nosql-lab-14" target="_blank" class="text-xs font-mono text-sky-400 hover:underline">rayhaan369/nosql-lab-14 &nearr;</a>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <label class="text-xs text-slate-300">Cache Hit SLA Threshold (%):</label>
+          <input id="l14Thresh" type="number" value="80" min="50" max="99" onchange="renderLab14()" class="w-24 bg-[#030712] border border-slate-700 rounded-lg px-3 py-1.5 text-xs font-mono text-white" />
+          <button onclick="renderLab14()" class="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm cursor-pointer">
+            Evaluate Live Telemetry &amp; SLA
+          </button>
+        </div>
+        <div id="l14MetricsGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-3"></div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-slate-800 text-slate-400 uppercase">
+                <th class="py-2 px-3">Backup Strategy</th>
+                <th class="py-2 px-3">RPO (Data Loss Window)</th>
+                <th class="py-2 px-3">RTO (Restore Speed)</th>
+                <th class="py-2 px-3">Production Use Case</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/70 text-slate-200">
+              <tr><td class="py-2 px-3 font-semibold">mongodump / mongorestore</td><td class="py-2 px-3">Hours (Scheduled Cron)</td><td class="py-2 px-3">Slow (Logical BSON rebuild)</td><td class="py-2 px-3">Small collections (&lt; 50 GB)</td></tr>
+              <tr><td class="py-2 px-3 font-semibold">Filesystem / EBS Snapshots</td><td class="py-2 px-3">Minutes&ndash;Hours</td><td class="py-2 px-3 text-emerald-400 font-semibold">Fast (Volume mount)</td><td class="py-2 px-3">Large stateful volumes</td></tr>
+              <tr><td class="py-2 px-3 font-semibold">Continuous Oplog PITR</td><td class="py-2 px-3 text-emerald-400 font-semibold">~Seconds (Timestamp precision)</td><td class="py-2 px-3 text-emerald-400 font-semibold">Fast (Snapshot + oplog replay)</td><td class="py-2 px-3">Mission-critical zero-data-loss SLA</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- LAB 15 -->
+      <section id="lab-card-15" class="bg-[#0b1120] border border-slate-800 rounded-2xl p-5 transition space-y-4">
+        <div class="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 font-mono text-[11px] font-bold border border-emerald-700/50">LAB 15 &bull; LIVE LAPTOP ANALYSIS</span>
+              <h3 class="text-base sm:text-lg font-bold text-white">Multi-Tenant SaaS Isolation, TTL Rate Limiting &amp; Zero-Downtime Migration</h3>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">Compares Document-Level shared collections vs. Collection-Per-Tenant physical isolation with 5-req/min TTL rate limiting in <code>lab_15</code>.</p>
+          </div>
+          <a href="https://hub.docker.com/r/rayhaan369/nosql-lab-15" target="_blank" class="text-xs font-mono text-sky-400 hover:underline">rayhaan369/nosql-lab-15 &nearr;</a>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <select id="l15Tenant" onchange="renderLab15()" class="bg-[#030712] border border-slate-700 rounded-lg px-3 py-2 text-xs sm:text-sm text-white">
+            <option value="tenant_alpha">Shared Pool: tenant_alpha</option>
+            <option value="tenant_beta">Shared Pool: tenant_beta</option>
+            <option value="acme">Isolated Collection: acme (100 tasks migrated)</option>
+            <option value="globex">Isolated Collection: globex (100 tasks migrated)</option>
+            <option value="wayne">Isolated Collection: wayne (100 tasks migrated)</option>
+          </select>
+          <input id="l15NewTitle" type="text" placeholder="Add new task to selected tenant..." class="bg-[#030712] border border-slate-700 rounded-lg px-3 py-2 text-xs sm:text-sm text-white min-w-[210px]" />
+          <button onclick="addLab15Task()" class="px-4 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs sm:text-sm cursor-pointer">
+            + Create Tenant Task
+          </button>
+        </div>
+        <div id="l15SummaryCards" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div>
+        <div id="l15TaskList" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+      </section>
+
+      <!-- LAB 16 -->
+      <section id="lab-card-16" class="bg-[#0b1120] border border-slate-800 rounded-2xl p-5 transition space-y-4">
+        <div class="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 font-mono text-[11px] font-bold border border-emerald-700/50">LAB 16 &bull; LIVE LAPTOP ANALYSIS</span>
+              <h3 class="text-base sm:text-lg font-bold text-white">Polyglot Persistence (MongoDB + Cassandra + Neo4j) &amp; FraudQueryService</h3>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">Combines OLTP transaction profiles (MongoDB), time-series velocity (Cassandra), and 2-hop graph rings (Neo4j) with 3-strike circuit breaker protection in <code>lab_16</code>.</p>
+          </div>
+          <a href="https://hub.docker.com/r/rayhaan369/nosql-lab-16" target="_blank" class="text-xs font-mono text-sky-400 hover:underline">rayhaan369/nosql-lab-16 &nearr;</a>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <select id="l16Txn" onchange="renderLab16(false)" class="bg-[#030712] border border-slate-700 rounded-lg px-3 py-2 text-xs sm:text-sm text-white">
+            <option value="TXN-9001">TXN-9001 &mdash; Offshore Wire X ($9,850.00 | Risk 0.94)</option>
+            <option value="TXN-9002">TXN-9002 &mdash; Cloud Hosting Ltd ($120.50 | Risk 0.08)</option>
+          </select>
+          <button onclick="renderLab16(false)" class="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm cursor-pointer">
+            Run Polyglot FraudQueryService
+          </button>
+          <button onclick="renderLab16(true)" class="px-4 py-2 rounded-lg bg-amber-950/80 hover:bg-amber-900 text-amber-200 border border-amber-700/60 font-semibold text-xs sm:text-sm cursor-pointer">
+            Simulate 3-Strike Neo4j Circuit Breaker
+          </button>
+        </div>
+        <div id="l16EngineCards" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+      </section>
+
+      <!-- LAB 17 -->
+      <section id="lab-card-17" class="bg-[#0b1120] border border-slate-800 rounded-2xl p-5 transition space-y-4">
+        <div class="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 font-mono text-[11px] font-bold border border-emerald-700/50">LAB 17 &bull; LIVE LAPTOP ANALYSIS</span>
+              <h3 class="text-base sm:text-lg font-bold text-white">Vector Search RAG Pipeline (Top-3 Retrieval + Memory) &amp; HNSW vs. IVF Benchmarks</h3>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">Semantic cosine similarity retrieval over 384-d Threat Intelligence embeddings + 5,000-doc / 100-query HNSW vs. IVF latency-recall analysis in <code>rag_demo</code>.</p>
+          </div>
+          <a href="https://hub.docker.com/r/rayhaan369/nosql-lab-17" target="_blank" class="text-xs font-mono text-sky-400 hover:underline">rayhaan369/nosql-lab-17 &nearr;</a>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <input id="l17Query" type="text" value="How do attackers evade MFA and move laterally during ransomware or phishing intrusions?"
+            class="flex-1 min-w-[260px] bg-[#030712] border border-slate-700 rounded-lg px-3 py-2 text-xs sm:text-sm text-white" />
+          <select id="l17IndexMode" onchange="renderLab17()" class="bg-[#030712] border border-slate-700 rounded-lg px-3 py-2 text-xs sm:text-sm text-white">
+            <option value="HNSW">Index Benchmark: HNSW (M=16, efConstruction=32..256)</option>
+            <option value="IVF">Index Benchmark: IVF (nlist=100, nprobe=10..100)</option>
+          </select>
+          <button onclick="renderLab17()" class="px-4 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs sm:text-sm cursor-pointer">
+            Search &amp; Compare Index
+          </button>
+        </div>
+        <div id="l17MatchesGrid" class="grid grid-cols-1 md:grid-cols-3 gap-3"></div>
+        <div id="l17BenchTable" class="overflow-x-auto"></div>
+      </section>
+
+      <!-- LAB 18 -->
+      <section id="lab-card-18" class="bg-[#0b1120] border border-slate-800 rounded-2xl p-5 transition space-y-4">
+        <div class="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-rose-950 text-rose-300 font-mono text-[11px] font-bold border border-rose-700/60">LAB 18 CAPSTONE &bull; LIVE LAPTOP ANALYSIS</span>
+              <h3 class="text-base sm:text-lg font-bold text-white">False-Positive Threat Detection (100,000 Records, 10-Run Medians &amp; 1M&ndash;100M Scale)</h3>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">Filters 100,000 threats in <code>lab_18.full_threats</code>, correlates Neo4j <code>[:SUSPICIOUS]</code> communities with MongoDB details, and models 1M/10M/100M horizontal scaling.</p>
+          </div>
+          <a href="https://hub.docker.com/r/rayhaan369/nosql-lab-18" target="_blank" class="text-xs font-mono text-sky-400 hover:underline">rayhaan369/nosql-lab-18 &nearr;</a>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <select id="l18Source" onchange="renderLab18()" class="bg-[#030712] border border-slate-700 rounded-lg px-3 py-2 text-xs sm:text-sm text-white">
+            <option value="ALL">Source Feed: ALL (100,000 Threats)</option>
+            <option value="otx_feed">otx_feed (20,000 threats)</option>
+            <option value="virustotal_stream">virustotal_stream (20,000 threats)</option>
+            <option value="abuse_ch">abuse_ch (20,000 threats)</option>
+            <option value="shodan_sensor">shodan_sensor (20,000 threats)</option>
+            <option value="internal_edr">internal_edr (20,000 threats)</option>
+          </select>
+          <select id="l18Cluster" onchange="renderLab18()" class="bg-[#030712] border border-slate-700 rounded-lg px-3 py-2 text-xs sm:text-sm text-white">
+            <option value="ALL">False-Positive Community: ALL (4,000 FP Candidates)</option>
+            <option value="FP-CLUSTER-1">FP-CLUSTER-1 (SUSPICIOUS degree=54)</option>
+            <option value="FP-CLUSTER-2">FP-CLUSTER-2 (SUSPICIOUS degree=60)</option>
+            <option value="FP-CLUSTER-3">FP-CLUSTER-3 (SUSPICIOUS degree=66)</option>
+            <option value="FP-CLUSTER-4">FP-CLUSTER-4 (SUSPICIOUS degree=72)</option>
+          </select>
+          <select id="l18Scale" onchange="renderLab18()" class="bg-[#030712] border border-slate-700 rounded-lg px-3 py-2 text-xs sm:text-sm text-white">
+            <option value="1M">Scale Blueprint: 1M Records (~1.2 GB)</option>
+            <option value="10M">Scale Blueprint: 10M Records (~12 GB)</option>
+            <option value="100M" selected>Scale Blueprint: 100M Records (~120 GB)</option>
+          </select>
+          <button onclick="renderLab18()" class="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm cursor-pointer">
+            Analyze 100k Dataset
+          </button>
+        </div>
+        <div id="l18Kpis" class="grid grid-cols-2 sm:grid-cols-4 gap-3"></div>
+        <div id="l18ScaleCard" class="bg-[#060b16] border border-slate-800 rounded-xl p-4"></div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-slate-800 text-slate-400 uppercase">
+                <th class="py-2 px-3">Benchmark Query (100k Docs, 10-Run Median)</th>
+                <th class="py-2 px-3">MongoDB Median</th>
+                <th class="py-2 px-3">Cassandra Median</th>
+                <th class="py-2 px-3">Neo4j Median</th>
+                <th class="py-2 px-3">Recommended Store</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/70 text-slate-200">
+              <tr><td class="py-2 px-3 font-semibold">1. Threat History (latest 50 by source)</td><td class="py-2 px-3 font-mono text-emerald-400 font-bold">1.2459 ms</td><td class="py-2 px-3 font-mono">1.9700 ms</td><td class="py-2 px-3 font-mono">14.8000 ms</td><td class="py-2 px-3 text-sky-400">MongoDB</td></tr>
+              <tr><td class="py-2 px-3 font-semibold">2. Target &amp; Spread (cross-source target)</td><td class="py-2 px-3 font-mono">64.8386 ms</td><td class="py-2 px-3 font-mono text-emerald-400 font-bold">3.5800 ms</td><td class="py-2 px-3 font-mono">19.2000 ms</td><td class="py-2 px-3 text-sky-400">Cassandra / Neo4j</td></tr>
+              <tr><td class="py-2 px-3 font-semibold">3. Daily Volume Analytics (by day &amp; type)</td><td class="py-2 px-3 font-mono">120.3424 ms</td><td class="py-2 px-3 font-mono text-emerald-400 font-bold">2.2500 ms</td><td class="py-2 px-3 font-mono">24.5000 ms</td><td class="py-2 px-3 text-sky-400">Cassandra</td></tr>
+              <tr><td class="py-2 px-3 font-semibold">4. Real-Time Insert Throughput</td><td class="py-2 px-3 font-mono text-emerald-400 font-bold">0.8339 ms</td><td class="py-2 px-3 font-mono text-emerald-400 font-bold">0.8300 ms</td><td class="py-2 px-3 font-mono">11.4000 ms</td><td class="py-2 px-3 text-sky-400">Cassandra / MongoDB</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = "http://127.0.0.1:8080";
+
+    const LABS_DIRECTORY = [
+      { id: 1, tab: 2, section: "Core MongoDB (Labs 1&ndash;6)", title: "MongoDB Setup & BSON CRUD", live: false },
+      { id: 2, tab: 2, section: "Core MongoDB (Labs 1&ndash;6)", title: "Advanced Query & Array Filters", live: false },
+      { id: 3, tab: 2, section: "Core MongoDB (Labs 1&ndash;6)", title: "Data Modeling (Embed vs Ref)", live: false },
+      { id: 4, tab: 2, section: "Core MongoDB (Labs 1&ndash;6)", title: "Aggregation Pipelines & $lookup", live: false },
+      { id: 5, tab: 2, section: "Core MongoDB (Labs 1&ndash;6)", title: "ESR Compound Indexes & explain()", live: false },
+      { id: 6, tab: 2, section: "Core MongoDB (Labs 1&ndash;6)", title: "Geospatial 2dsphere Queries", live: false },
+      { id: 7, tab: 3, section: "CTI Sentinel & HA (Labs 7&ndash;10)", title: "CTI Sentinel BSON & Cache Engine", live: false },
+      { id: 8, tab: 4, section: "CTI Sentinel & HA (Labs 7&ndash;10)", title: "Replica Set rs0 & Failover", live: false },
+      { id: 9, tab: 5, section: "CTI Sentinel & HA (Labs 7&ndash;10)", title: "Docker Containers & Change Streams", live: false },
+      { id: 10, tab: 6, section: "CTI Sentinel & HA (Labs 7&ndash;10)", title: "Multi-Document ACID Transactions", live: true },
+      { id: 11, tab: 6, section: "Live Laptop Analysis (Labs 11&ndash;18)", title: "Horizontal Sharding & Chunk Routing", live: true },
+      { id: 12, tab: 6, section: "Live Laptop Analysis (Labs 11&ndash;18)", title: "JSON Schema Validation & Governance", live: true },
+      { id: 13, tab: 6, section: "Live Laptop Analysis (Labs 11&ndash;18)", title: "RBAC Security & PII Encryption", live: true },
+      { id: 14, tab: 6, section: "Live Laptop Analysis (Labs 11&ndash;18)", title: "K8s, serverStatus & RPO/RTO SRE", live: true },
+      { id: 15, tab: 6, section: "Live Laptop Analysis (Labs 11&ndash;18)", title: "Multi-Tenant SaaS Isolation", live: true },
+      { id: 16, tab: 6, section: "Live Laptop Analysis (Labs 11&ndash;18)", title: "Polyglot (Mongo + Cassandra + Neo4j)", live: true },
+      { id: 17, tab: 6, section: "Live Laptop Analysis (Labs 11&ndash;18)", title: "Vector Search RAG & HNSW vs IVF", live: true },
+      { id: 18, tab: 6, section: "Live Laptop Analysis (Labs 11&ndash;18)", title: "False-Positive Threat Detection (100k)", live: true }
+    ];
+
+    function buildSidebar() {
+      const container = document.getElementById("sidebarContainer");
+      const grouped = {};
+      LABS_DIRECTORY.forEach(item => {
+        if (!grouped[item.section]) grouped[item.section] = [];
+        grouped[item.section].push(item);
+      });
+
+      let html = "";
+      for (const [secTitle, items] of Object.entries(grouped)) {
+        html += `<div><div class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">${secTitle}</div><div class="space-y-1">`;
+        items.forEach(lab => {
+          const badge = lab.live
+            ? "bg-emerald-950 text-emerald-400 border border-emerald-700/60"
+            : "bg-slate-800/90 text-sky-400 border border-slate-700/70";
+          html += `
+            <button id="sb-lab-${lab.id}" onclick="openLabFromSidebar(${lab.id}, ${lab.tab})"
+              class="sb-nav-btn w-full text-left px-2.5 py-2 rounded-xl border border-transparent hover:bg-slate-800/60 hover:border-slate-700/80 flex items-start gap-2.5 transition cursor-pointer">
+              <span class="font-mono text-[11px] font-bold px-2 py-0.5 rounded-md flex-shrink-0 mt-0.5 ${badge}">
+                Lab ${lab.id}
+              </span>
+              <span class="text-xs font-medium text-slate-200 leading-snug">${lab.title}</span>
+            </button>`;
+        });
+        html += `</div></div>`;
+      }
+      container.innerHTML = html;
+    }
+
+    function toggleSidebar() {
+      document.getElementById("labsSidebar").classList.toggle("sidebar-collapsed");
+    }
+
+    function switchTab(tabNum) {
+      document.querySelectorAll(".tab-view").forEach(v => v.classList.add("hidden"));
+      document.getElementById(`view-${tabNum}`).classList.remove("hidden");
+
+      document.querySelectorAll(".tab-pill").forEach(btn => {
+        btn.classList.remove("border-sky-400", "bg-[#111c33]", "text-white", "shadow-md");
+      });
+      const activePill = document.getElementById(`tab-pill-${tabNum}`);
+      if (tabNum !== 6) {
+        activePill.classList.add("border-sky-400", "bg-[#111c33]", "text-white", "shadow-md");
+      }
+    }
+
+    function openLabFromSidebar(labId, tabNum) {
+      switchTab(tabNum);
+      document.querySelectorAll(".sb-nav-btn").forEach(b => b.classList.remove("bg-slate-800/90", "border-sky-500/60"));
+      const btn = document.getElementById(`sb-lab-${labId}`);
+      if (btn) btn.classList.add("bg-slate-800/90", "border-sky-500/60");
+
+      document.querySelectorAll("[id^='lab-card-']").forEach(c => c.classList.remove("lab-card-highlight"));
+      const card = document.getElementById(`lab-card-${labId}`);
+      if (card) {
+        card.classList.add("lab-card-highlight");
+        card.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    function downloadHtmlFile() {
+      const content = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      const blob = new Blob([content], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "index.html";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    async function fetchSilent(path, opts) {
+      try {
+        const res = await fetch(`${API_BASE}${path}`, opts);
+        if (!res.ok) return null;
+        document.getElementById("connDot").className = "w-2 h-2 rounded-full bg-emerald-400 animate-pulse";
+        document.getElementById("connLabel").textContent = "Live Laptop MongoDB Connected";
+        return await res.json();
+      } catch (e) {
+        return null;
+      }
+    }
+
+    const CTI_REPORTS = [
+      { id: "CTI-2025-001", category: "Ransomware", severity: "Critical", title: "LockBit-NG Cloud IAM Role Hijacking Campaign", summary: "Automated enumeration of misconfigured AWS IAM trust policies followed by S3 snapshot exfiltration.", iocs: ["IP: 185.220.101.42", "DOMAIN: cdn-auth-sync[.]net"], bsonBytes: 628, verdict: "Actual Threat" },
+      { id: "CTI-2025-002", category: "Supply Chain", severity: "High", title: "PyPI Typosquatting Package Dropping CI/CD Infostealer", summary: "Malicious setup.py hook harvests MongoDB connection strings and cloud tokens during container builds.", iocs: ["SHA256: 9f86d081884c7d659a2feaa0c55ad015"], bsonBytes: 542, verdict: "Actual Threat" },
+      { id: "CTI-2025-003", category: "Phishing", severity: "High", title: "OAuth2 Adversary-in-the-Middle Token Replay", summary: "Reverse-proxy phishing kit captures session cookies to bypass hardware MFA enforcement.", iocs: ["DOMAIN: login-sso-verify[.]com"], bsonBytes: 518, verdict: "Actual Threat" },
+      { id: "CTI-2025-004", category: "Reconnaissance", severity: "Low", title: "Automated Internet-Wide TCP/27017 Banner Sweep", summary: "Benign Shodan/Censys research scanner probing open MongoDB ports without exploit payload.", iocs: ["IP: 71.6.135.131"], bsonBytes: 476, verdict: "Benign Noise" },
+      { id: "CTI-2025-005", category: "Ransomware", severity: "Critical", title: "BlackCat Rust Encryptor Targeting Linux ESXi Hosts", summary: "Lateral movement via compromised vCenter credentials followed by multi-threaded VMFS encryption.", iocs: ["IP: 91.214.124.88", "CVE-2024-37085"], bsonBytes: 612, verdict: "Actual Threat" },
+      { id: "CTI-2025-006", category: "Supply Chain", severity: "Medium", title: "Compromised GitHub Action Exfiltrating Build Secrets", summary: "Pinned third-party workflow tag mutated to dump runner environment variables to external webhook.", iocs: ["DOMAIN: ci-metrics-collector[.]io"], bsonBytes: 508, verdict: "Actual Threat" }
+    ];
+
+    function severityBadgeClass(sev) {
+      if (sev === "Critical") return "bg-rose-950/90 text-rose-400 border-rose-700/60";
+      if (sev === "High") return "bg-amber-950/90 text-amber-400 border-amber-700/60";
+      if (sev === "Medium") return "bg-sky-950/90 text-sky-400 border-sky-700/60";
+      return "bg-slate-800 text-slate-300 border-slate-700";
+    }
+
+    function renderThreatCards() {
+      const q = document.getElementById("ctiSearchInput").value.trim().toLowerCase();
+      const sev = document.getElementById("ctiSeverityFilter").value;
+      const cat = document.getElementById("ctiCategoryFilter").value;
+
+      const filtered = CTI_REPORTS.filter(r => {
+        const matchSev = sev === "ALL" || r.severity === sev;
+        const matchCat = cat === "ALL" || r.category === cat;
+        const blob = `${r.id} ${r.title} ${r.summary} ${r.iocs.join(" ")} ${r.category}`.toLowerCase();
+        const matchQ = !q || blob.includes(q);
+        return matchSev && matchCat && matchQ;
+      });
+
+      document.getElementById("kpiReportsCount").textContent = CTI_REPORTS.length;
+      const avgSize = Math.round(CTI_REPORTS.reduce((acc, r) => acc + r.bsonBytes, 0) / CTI_REPORTS.length);
+      document.getElementById("kpiAvgBson").textContent = `${avgSize} B`;
+
+      const grid = document.getElementById("ctiCardsGrid");
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="col-span-2 bg-[#0b1120] border border-slate-800 rounded-2xl p-6 text-center text-sm text-slate-400">No threat reports match your current filter criteria.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(r => `
+        <article class="bg-[#0b1120] border border-slate-800/90 hover:border-slate-700 rounded-2xl p-4 flex flex-col justify-between transition">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <div class="text-xs font-mono text-slate-400">${r.id} &bull; <span class="text-slate-300">${r.category}</span></div>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${severityBadgeClass(r.severity)}">${r.severity}</span>
+            </div>
+            <h3 class="text-sm sm:text-base font-bold text-white leading-snug">${r.title}</h3>
+            <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">${r.summary}</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-800/70">
+            <div class="flex flex-wrap gap-1.5 mb-2.5">
+              ${r.iocs.map(ioc => `<span class="px-2.5 py-1 rounded-lg bg-[#030712] border border-slate-800 font-mono text-[11px] text-emerald-400">${ioc}</span>`).join("")}
+            </div>
+            <div class="flex items-center justify-between text-[11px] font-mono">
+              <span class="text-slate-500">$bsonSize: ${r.bsonBytes} B</span>
+              <span class="${r.verdict === 'Benign Noise' ? 'text-slate-400' : 'text-slate-300 font-semibold'}">${r.verdict}</span>
+            </div>
+          </div>
+        </article>`).join("");
+    }
+
+    function handleIngestReport(e) {
+      e.preventDefault();
+      const title = document.getElementById("ingestTitle").value.trim();
+      const category = document.getElementById("ingestCategory").value;
+      const severity = document.getElementById("ingestSeverity").value;
+      const ioc = document.getElementById("ingestIoc").value.trim();
+      const summary = document.getElementById("ingestSummary").value.trim();
+      if (!title || !ioc || !summary) return;
+
+      const nextNum = String(CTI_REPORTS.length + 1).padStart(3, "0");
+      const bsonSize = 390 + title.length * 2 + summary.length * 2 + ioc.length;
+      const newDoc = {
+        id: `CTI-2025-${nextNum}`, category, severity, title, summary,
+        iocs: [ioc.includes(":") ? ioc : `IOC: ${ioc}`], bsonBytes: bsonSize,
+        verdict: severity === "Low" ? "Benign Noise" : "Actual Threat"
+      };
+      CTI_REPORTS.unshift(newDoc);
+      renderThreatCards();
+      e.target.reset();
+
+      const toast = document.getElementById("ingestToast");
+      toast.textContent = `Inserted ${newDoc.id} ($bsonSize: ${bsonSize} B) into lab_7.threat_reports.`;
+      toast.classList.remove("hidden");
+      setTimeout(() => toast.classList.add("hidden"), 4000);
+    }
+
+    let sourceAcc = { balance: 1000, version: 1 };
+    let destAcc = { balance: 500, version: 1 };
+    let acidHistory = [];
+
+    function updateAcidUi() {
+      document.getElementById("acc1Bal").textContent = `$${sourceAcc.balance.toLocaleString("en-US", { minimumFractionDigits: 2 })}`;
+      document.getElementById("acc2Bal").textContent = `$${destAcc.balance.toLocaleString("en-US", { minimumFractionDigits: 2 })}`;
+      document.getElementById("acc1Ver").textContent = `version: ${sourceAcc.version}`;
+      document.getElementById("acc2Ver").textContent = `version: ${destAcc.version}`;
+      document.getElementById("acidTxnBadge").textContent = `${acidHistory.length} txns`;
+
+      const feed = document.getElementById("acidAuditFeed");
+      if (acidHistory.length === 0) {
+        feed.textContent = "No transfers executed yet.";
+      } else {
+        feed.innerHTML = acidHistory.map(item => `
+          <div class="pb-2 mb-2 border-b border-slate-800/80">
+            <div class="text-emerald-400 font-bold">${item.id} &bull; COMMITTED</div>
+            <div class="text-slate-200">$${item.amount.toFixed(2)} (ACC-1001 &rarr; ACC-1002)</div>
+            <div class="text-[11px] text-slate-500">${item.time}</div>
+          </div>`).join("");
+      }
+    }
+
+    function resetAcid() {
+      sourceAcc = { balance: 1000, version: 1 };
+      destAcc = { balance: 500, version: 1 };
+      acidHistory = [];
+      updateAcidUi();
+      document.getElementById("acidStatusBanner").innerHTML = `
+        <div>[Session] Reset ACC-1001 ($1,000.00, v1) &amp; ACC-1002 ($500.00, v1) on rs0</div>
+        <div class="text-emerald-400">[Verify] Clean snapshot state ready.</div>`;
+    }
+
+    function runAcidTransfer(forceOverdraft) {
+      const amount = forceOverdraft ? 2000 : Math.max(1, Number(document.getElementById("acidAmount").value || 250));
+      const banner = document.getElementById("acidStatusBanner");
+      if (sourceAcc.balance < amount) {
+        banner.innerHTML = `
+          <div>[Session] start_transaction(readConcern="snapshot", writeConcern="majority")</div>
+          <div class="text-rose-400">[Abort] Insufficient funds ($${sourceAcc.balance.toFixed(2)} &lt; $${amount.toFixed(2)}) &rarr; session.abort_transaction()</div>
+          <div class="text-emerald-400">[Atomic Guarantee] Zero partial writes committed to ACC-1001 or ACC-1002.</div>`;
+        return;
+      }
+      sourceAcc.balance -= amount; sourceAcc.version += 1;
+      destAcc.balance += amount; destAcc.version += 1;
+      const txnId = `TXN-${1001 + acidHistory.length}`;
+      acidHistory.unshift({ id: txnId, amount, time: new Date().toLocaleTimeString() });
+      updateAcidUi();
+      banner.innerHTML = `
+        <div>[Session] start_transaction() on rs0</div>
+        <div class="text-emerald-400">[Commit] Debited ACC-1001 (-$${amount.toFixed(2)}, v${sourceAcc.version}), Credited ACC-1002 (+$${amount.toFixed(2)}, v${destAcc.version}), Logged ${txnId}.</div>`;
+    }
+
+    function runTransientRetry() {
+      document.getElementById("acidStatusBanner").innerHTML = `
+        <div class="text-amber-400">[Retry Loop] TransientTransactionError (WriteConflict) caught on attempt 1 &rarr; backoff 50ms</div>
+        <div class="text-emerald-400">[Commit] Attempt 2 succeeded cleanly with UnknownTransactionCommitResult idempotency.</div>`;
+    }
+
+    async function renderLab11() {
+      const strategy = document.getElementById("l11Strategy").value;
+      await fetchSilent(`/api/lab11?strategy=${strategy}`);
+      const shards = strategy === "hashed"
+        ? [
+            { name: "shard01 (rsShard1)", chunks: 8, pct: 33.4, docs: "33,412 docs", status: "Balanced" },
+            { name: "shard02 (rsShard2)", chunks: 8, pct: 33.3, docs: "33,280 docs", status: "Balanced" },
+            { name: "shard03 (rsShard3)", chunks: 8, pct: 33.3, docs: "33,308 docs", status: "Balanced" }
+          ]
+        : [
+            { name: "shard01 (rsShard1)", chunks: 4, pct: 14.2, docs: "14,200 docs", status: "Cold Archive" },
+            { name: "shard02 (rsShard2)", chunks: 6, pct: 24.8, docs: "24,800 docs", status: "Warm Range" },
+            { name: "shard03 (rsShard3)", chunks: 14, pct: 61.0, docs: "61,000 docs", status: "Hot Write Tail" }
+          ];
+
+      document.getElementById("l11Cards").innerHTML = shards.map(s => `
+        <div class="bg-[#060b16] border border-slate-800 rounded-xl p-4">
+          <div class="flex justify-between items-center text-xs font-mono">
+            <span class="text-sky-400 font-bold">${s.name}</span>
+            <span class="text-slate-400">${s.chunks} chunks</span>
+          </div>
+          <div class="text-lg font-extrabold text-white mt-1">${s.docs} (${s.pct}%)</div>
+          <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden my-2">
+            <div class="h-full ${s.pct > 50 ? 'bg-amber-400' : 'bg-emerald-400'}" style="width:${s.pct}%"></div>
+          </div>
+          <div class="text-xs text-slate-400">Status: <span class="text-emerald-400 font-semibold">${s.status}</span></div>
+        </div>`).join("");
+
+      document.getElementById("l11Verdict").innerHTML = strategy === "hashed"
+        ? `<span class="text-emerald-400 font-bold">Targeted Single-Shard Routing (1.18 ms):</span> Hashed shard key eliminates hot-shard write bottlenecks and routes tenant queries directly to <code>SINGLE_SHARD -> IXSCAN</code> instead of a 14.65 ms 3-shard scatter-gather.`
+        : `<span class="text-amber-400 font-bold">Range Locality Trade-Off (1.42 ms range / 61% tail skew):</span> Monotonic timestamp keys keep contiguous time windows co-located on 1 shard, but concentrate real-time inserts onto <code>shard03</code> until the balancer splits jumbo chunks.`;
+    }
+
+    async function renderLab12() {
+      const email = document.getElementById("l12Email").value.trim();
+      const age = Number(document.getElementById("l12Age").value);
+      const severity = document.getElementById("l12Severity").value;
+      await fetchSilent("/api/lab12/validate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, age, severity }) });
+
+      const emailOk = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+      const ageOk = Number.isFinite(age) && age >= 18 && age <= 120;
+      const sevOk = ["LOW", "MEDIUM", "HIGH", "CRITICAL"].includes(severity);
+      const overallOk = emailOk && ageOk && sevOk;
+
+      document.getElementById("l12ResultCards").innerHTML = `
+        <div class="bg-[#060b16] border ${emailOk ? 'border-emerald-700/60' : 'border-rose-700/60'} rounded-xl p-3.5">
+          <div class="text-[11px] text-slate-400 uppercase">Email BSON Pattern</div>
+          <div class="text-sm font-bold ${emailOk ? 'text-emerald-400' : 'text-rose-400'} mt-1">${emailOk ? 'PASS (Valid Format)' : 'FAIL (Invalid Email)'}</div>
+        </div>
+        <div class="bg-[#060b16] border ${ageOk ? 'border-emerald-700/60' : 'border-rose-700/60'} rounded-xl p-3.5">
+          <div class="text-[11px] text-slate-400 uppercase">Age Bounds (18..120)</div>
+          <div class="text-sm font-bold ${ageOk ? 'text-emerald-400' : 'text-rose-400'} mt-1">${ageOk ? `PASS (${age} yrs)` : `FAIL (${age} out of range)`}</div>
+        </div>
+        <div class="bg-[#060b16] border ${sevOk ? 'border-emerald-700/60' : 'border-rose-700/60'} rounded-xl p-3.5">
+          <div class="text-[11px] text-slate-400 uppercase">Severity Enum</div>
+          <div class="text-sm font-bold ${sevOk ? 'text-emerald-400' : 'text-rose-400'} mt-1">${sevOk ? `PASS (${severity})` : 'FAIL (Enum Mismatch)'}</div>
+        </div>
+        <div class="bg-[#060b16] border ${overallOk ? 'border-emerald-500/70' : 'border-rose-500/70'} rounded-xl p-3.5">
+          <div class="text-[11px] text-slate-400 uppercase">MongoDB Action</div>
+          <div class="text-sm font-extrabold ${overallOk ? 'text-emerald-400' : 'text-rose-400'} mt-1">${overallOk ? 'COMMITTED TO LAB_12' : 'ERROR 121: REJECTED'}</div>
+        </div>`;
+    }
+
+    async function renderLab13() {
+      const role = document.getElementById("l13Role").value;
+      await fetchSilent(`/api/lab13?role=${role}`);
+      const isAdmin = role === "securityAdmin";
+
+      const rows = [
+        { id: "ANALYST-122", name: "Mohammed Rayhaan A", clearance: "TOP_SECRET_CTI", pii: isAdmin ? "ABCDE1234F (Decrypted via Local KMS)" : "[REDACTED_BY_RBAC]", token: isAdmin ? "sha256:9f86d081884c7d65" : "[MASKED_CIPHERTEXT]" },
+        { id: "ANALYST-108", name: "Priya Nair", clearance: "SECRET_SOC", pii: isAdmin ? "PQRSX9876K (Decrypted via Local KMS)" : "[REDACTED_BY_RBAC]", token: isAdmin ? "sha256:4b227777d4dd1fc6" : "[MASKED_CIPHERTEXT]" }
+      ];
+
+      document.getElementById("l13TableWrap").innerHTML = `
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="border-b border-slate-800 text-slate-400 uppercase">
+              <th class="py-2 px-3">Analyst ID</th><th class="py-2 px-3">Name</th><th class="py-2 px-3">Clearance</th><th class="py-2 px-3">CSFLE Encrypted Gov ID</th><th class="py-2 px-3">API Token Hash</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/70 text-slate-200">
+            ${rows.map(r => `
+              <tr>
+                <td class="py-2.5 px-3 font-mono text-sky-400">${r.id}</td>
+                <td class="py-2.5 px-3 font-semibold">${r.name}</td>
+                <td class="py-2.5 px-3">${r.clearance}</td>
+                <td class="py-2.5 px-3 font-mono ${isAdmin ? 'text-emerald-400' : 'text-amber-400'}">${r.pii}</td>
+                <td class="py-2.5 px-3 font-mono ${isAdmin ? 'text-emerald-400' : 'text-slate-500'}">${r.token}</td>
+              </tr>`).join("")}
+          </tbody>
+        </table>`;
+    }
+
+    async function renderLab14() {
+      const thresh = Number(document.getElementById("l14Thresh").value || 80);
+      const live = await fetchSilent("/api/lab14");
+      const hitRatio = live?.live_metrics?.cache_hit_ratio_pct ?? 95.9;
+      const conns = live?.live_metrics?.connections_current ?? 14;
+      const alertFired = hitRatio < thresh;
+
+      document.getElementById("l14MetricsGrid").innerHTML = `
+        <div class="bg-[#060b16] border border-slate-800 rounded-xl p-3.5"><div class="text-[11px] uppercase text-slate-400">Active Connections</div><div class="text-lg font-extrabold text-white mt-1">${conns} / 818</div></div>
+        <div class="bg-[#060b16] border border-slate-800 rounded-xl p-3.5"><div class="text-[11px] uppercase text-slate-400">WiredTiger Hit Ratio</div><div class="text-lg font-extrabold text-emerald-400 mt-1">${hitRatio}%</div></div>
+        <div class="bg-[#060b16] border border-slate-800 rounded-xl p-3.5"><div class="text-[11px] uppercase text-slate-400">SLA Threshold</div><div class="text-lg font-extrabold text-sky-400 mt-1">${thresh}%</div></div>
+        <div class="bg-[#060b16] border ${alertFired ? 'border-rose-600' : 'border-emerald-700/60'} rounded-xl p-3.5"><div class="text-[11px] uppercase text-slate-400">Webhook Alert Status</div><div class="text-sm font-extrabold ${alertFired ? 'text-rose-400' : 'text-emerald-400'} mt-1.5">${alertFired ? 'ALERT: BELOW SLA' : 'HEALTHY (SLA MET)'}</div></div>`;
+    }
+
+    const SAAS_TASKS = {
+      tenant_alpha: [{ title: "Enrich APT29 C2 indicators", status: "open" }, { title: "Audit IAM session tokens", status: "done" }],
+      tenant_beta: [{ title: "Block phishing ASN 198.51.100.0/24", status: "open" }],
+      acme: [{ title: "Dedicated namespace task #1 (100 migrated)", status: "open" }],
+      globex: [{ title: "Dedicated namespace task #1 (100 migrated)", status: "open" }],
+      wayne: [{ title: "Dedicated namespace task #1 (100 migrated)", status: "open" }]
+    };
+
+    async function renderLab15() {
+      const tenant = document.getElementById("l15Tenant").value;
+      await fetchSilent(`/api/lab15?tenant=${tenant}`);
+      const isDedicated = ["acme", "globex", "wayne"].includes(tenant);
+
+      document.getElementById("l15SummaryCards").innerHTML = `
+        <div class="bg-[#060b16] border border-slate-800 rounded-xl p-3.5"><div class="text-[11px] uppercase text-slate-400">Isolation Strategy</div><div class="text-sm font-bold text-sky-400 mt-1">${isDedicated ? 'Collection-Per-Tenant' : 'Document-Level Shared'}</div></div>
+        <div class="bg-[#060b16] border border-slate-800 rounded-xl p-3.5"><div class="text-[11px] uppercase text-slate-400">Target Namespace</div><div class="text-sm font-mono font-bold text-white mt-1">${isDedicated ? `lab_15.tasks_tenant_${tenant}` : 'lab_15.tasks'}</div></div>
+        <div class="bg-[#060b16] border border-slate-800 rounded-xl p-3.5"><div class="text-[11px] uppercase text-slate-400">Avg Query Latency</div><div class="text-sm font-extrabold text-emerald-400 mt-1">${isDedicated ? '0.61 ms (Physical)' : '0.84 ms (Compound IX)'}</div></div>`;
+
+      const list = SAAS_TASKS[tenant] || [];
+      document.getElementById("l15TaskList").innerHTML = list.map(t => `
+        <div class="bg-[#060b16] border border-slate-800 rounded-xl p-3 flex items-center justify-between">
+          <div><div class="text-xs font-mono text-slate-400">${tenant}</div><div class="text-sm font-semibold text-white mt-0.5">${t.title}</div></div>
+          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-700/50">${t.status}</span>
+        </div>`).join("");
+    }
+
+    async function addLab15Task() {
+      const tenant = document.getElementById("l15Tenant").value;
+      const title = document.getElementById("l15NewTitle").value.trim() || "Verify JWT Tenant Boundary";
+      await fetchSilent("/api/lab15/task", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tenant_id: tenant, title }) });
+      if (!SAAS_TASKS[tenant]) SAAS_TASKS[tenant] = [];
+      SAAS_TASKS[tenant].unshift({ title, status: "open" });
+      document.getElementById("l15NewTitle").value = "";
+      renderLab15();
+    }
+
+    async function renderLab16(tripBreaker) {
+      const txn = document.getElementById("l16Txn").value;
+      await fetchSilent(`/api/lab16?txn_id=${txn}&trip=${tripBreaker}`);
+      const highRisk = txn === "TXN-9001";
+
+      document.getElementById("l16EngineCards").innerHTML = `
+        <div class="bg-[#060b16] border border-slate-800 rounded-xl p-4">
+          <div class="flex justify-between items-center mb-1"><span class="text-xs font-bold text-emerald-400 uppercase">1. MongoDB (OLTP Profile)</span><span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 text-[10px] font-mono">CLOSED</span></div>
+          <div class="text-base font-extrabold text-white mt-1">${highRisk ? 'Offshore Wire X &mdash; $9,850.00' : 'Cloud Hosting Ltd &mdash; $120.50'}</div>
+          <div class="text-xs text-slate-400 mt-1">Account: <code class="text-sky-400">${highRisk ? 'ACC-701' : 'ACC-702'}</code> &bull; Currency: USD</div>
+        </div>
+        <div class="bg-[#060b16] border border-slate-800 rounded-xl p-4">
+          <div class="flex justify-between items-center mb-1"><span class="text-xs font-bold text-sky-400 uppercase">2. Cassandra (Velocity Series)</span><span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 text-[10px] font-mono">CLOSED</span></div>
+          <div class="text-base font-extrabold text-white mt-1">${highRisk ? '14 txns in last 24h (Spike)' : '2 txns in last 24h (Normal)'}</div>
+          <div class="text-xs text-slate-400 mt-1">Partition Key: <code>(${highRisk ? 'ACC-701' : 'ACC-702'}, 2026-11-19)</code></div>
+        </div>
+        <div class="bg-[#060b16] border ${tripBreaker ? 'border-amber-600/80' : 'border-slate-800'} rounded-xl p-4">
+          <div class="flex justify-between items-center mb-1"><span class="text-xs font-bold text-fuchsia-400 uppercase">3. Neo4j (2-Hop Fraud Ring)</span><span class="px-2 py-0.5 rounded ${tripBreaker ? 'bg-amber-950 text-amber-300' : 'bg-emerald-950 text-emerald-400'} text-[10px] font-mono">${tripBreaker ? 'OPEN (FALLBACK)' : 'CLOSED'}</span></div>
+          <div class="text-base font-extrabold text-white mt-1">${tripBreaker ? 'Short-Circuited (3 Timeouts)' : (highRisk ? '2 Shared Devices -> ACC-884' : '0 Flagged Links')}</div>
+          <div class="text-xs text-slate-400 mt-1">Final Verdict: <span class="${highRisk ? 'text-rose-400 font-bold' : 'text-emerald-400 font-bold'}">${highRisk ? 'BLOCK & ESCALATE (0.94)' : 'APPROVE (0.08)'}</span></div>
+        </div>`;
+    }
+
+    const RAG_CHUNKS = [
+      { source: "cti_apt_ransomware_brief.md", text: "Coordinated ransomware campaigns target identity providers, harvest OAuth session tokens, and move laterally via SMB/WinRM prior to payload deployment." },
+      { source: "cti_phishing_c2_infrastructure.md", text: "Adversary-in-the-middle phishing kits proxy authentication flows to bypass hardware MFA and establish outbound C2 beacons." },
+      { source: "cti_vulnerability_zero_day_triage.md", text: "Prioritizing zero-day CVEs combines exploitability telemetry, active exploitation feeds, and emergency virtual WAF patching." }
+    ];
+
+    async function renderLab17() {
+      const query = document.getElementById("l17Query").value.trim();
+      const mode = document.getElementById("l17IndexMode").value;
+      const live = await fetchSilent("/api/lab17/analyze", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query, index_mode: mode }) });
+
+      const qWords = new Set(query.toLowerCase().split(/\W+/).filter(Boolean));
+      const ranked = RAG_CHUNKS.map((c, idx) => {
+        const dWords = c.text.toLowerCase().split(/\W+/).filter(Boolean);
+        const hits = dWords.filter(w => qWords.has(w)).length;
+        const score = (0.78 + hits * 0.03 - idx * 0.02).toFixed(4);
+        return { source: c.source, score, text: c.text };
+      }).sort((a, b) => Number(b.score) - Number(a.score));
+
+      const matches = live?.matches?.length ? live.matches : ranked;
+      document.getElementById("l17MatchesGrid").innerHTML = matches.map((m, i) => `
+        <div class="bg-[#060b16] border border-slate-800 rounded-xl p-3.5">
+          <div class="flex justify-between items-center text-xs font-mono mb-1.5">
+            <span class="text-sky-400 font-bold">#${i + 1} ${m.source}</span>
+            <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 font-bold">${m.score}</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">${m.text}</p>
+        </div>`).join("");
+
+      document.getElementById("l17BenchTable").innerHTML = mode === "HNSW"
+        ? `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-slate-800 text-slate-400 uppercase"><th class="py-2 px-3">Index Config (5,000 Docs, 384-d)</th><th class="py-2 px-3">Avg Query Latency</th><th class="py-2 px-3">Top-20 Recall</th><th class="py-2 px-3">Architectural Verdict</th></tr></thead><tbody class="divide-y divide-slate-800/70 text-slate-200"><tr><td class="py-2 px-3 font-mono">HNSW (M=16, efConstruction=32)</td><td class="py-2 px-3 font-mono">2.215 ms</td><td class="py-2 px-3 text-emerald-400 font-bold">96.40%</td><td class="py-2 px-3">Fast graph construction</td></tr><tr><td class="py-2 px-3 font-mono">HNSW (M=16, efConstruction=64)</td><td class="py-2 px-3 font-mono text-emerald-400 font-bold">0.993 ms</td><td class="py-2 px-3 text-emerald-400 font-bold">96.00%</td><td class="py-2 px-3 text-sky-400">Optimal RAG production sweet spot</td></tr><tr><td class="py-2 px-3 font-mono">HNSW (M=16, efConstruction=256)</td><td class="py-2 px-3 font-mono text-emerald-400 font-bold">0.948 ms</td><td class="py-2 px-3 text-emerald-400 font-bold">97.15%</td><td class="py-2 px-3">Highest accuracy &amp; sub-1ms latency</td></tr></tbody></table>`
+        : `<table class="w-full text-left border-collapse text-xs"><thead><tr class="border-b border-slate-800 text-slate-400 uppercase"><th class="py-2 px-3">Index Config (5,000 Docs, 384-d)</th><th class="py-2 px-3">Avg Query Latency</th><th class="py-2 px-3">Top-20 Recall</th><th class="py-2 px-3">Architectural Verdict</th></tr></thead><tbody class="divide-y divide-slate-800/70 text-slate-200"><tr><td class="py-2 px-3 font-mono">IVF (nlist=100, nprobe=10)</td><td class="py-2 px-3 font-mono text-emerald-400 font-bold">1.172 ms</td><td class="py-2 px-3 text-amber-400 font-bold">91.95%</td><td class="py-2 px-3">Low RAM footprint, lower recall</td></tr><tr><td class="py-2 px-3 font-mono">IVF (nlist=100, nprobe=50)</td><td class="py-2 px-3 font-mono">3.237 ms</td><td class="py-2 px-3 text-emerald-400 font-bold">96.25%</td><td class="py-2 px-3 text-sky-400">Balanced cluster probe trade-off</td></tr><tr><td class="py-2 px-3 font-mono">IVF (nlist=100, nprobe=100)</td><td class="py-2 px-3 font-mono text-rose-400">10.069 ms</td><td class="py-2 px-3 text-emerald-400 font-bold">96.20%</td><td class="py-2 px-3">Degrades toward linear scan</td></tr></tbody></table>`;
+    }
+
+    async function renderLab18() {
+      const source = document.getElementById("l18Source").value;
+      const cluster = document.getElementById("l18Cluster").value;
+      const scale = document.getElementById("l18Scale").value;
+      const live = await fetchSilent(`/api/lab18/analyze?source=${source}&cluster=${cluster}&scale=${scale}`);
+
+      const matched = live?.matched_count ?? (source === "ALL" && cluster === "ALL" ? 100000 : (source !== "ALL" && cluster !== "ALL" ? 200 : (source !== "ALL" ? 20000 : 1000)));
+      const fpCount = live?.fp_candidate_count ?? (cluster !== "ALL" ? matched : Math.round(matched * 0.04));
+      const qMs = live?.query_ms ?? 1.246;
+
+      document.getElementById("l18Kpis").innerHTML = `
+        <div class="bg-[#060b16] border border-slate-800 rounded-xl p-3.5"><div class="text-[11px] uppercase text-slate-400">Total Threats Indexed</div><div class="text-lg font-extrabold text-white mt-1">100,000</div></div>
+        <div class="bg-[#060b16] border border-slate-800 rounded-xl p-3.5"><div class="text-[11px] uppercase text-slate-400">Matched Filter Count</div><div class="text-lg font-extrabold text-sky-400 mt-1">${matched.toLocaleString()}</div></div>
+        <div class="bg-[#060b16] border border-slate-800 rounded-xl p-3.5"><div class="text-[11px] uppercase text-slate-400">False-Positive Candidates</div><div class="text-lg font-extrabold text-amber-400 mt-1">${fpCount.toLocaleString()}</div></div>
+        <div class="bg-[#060b16] border border-slate-800 rounded-xl p-3.5"><div class="text-[11px] uppercase text-slate-400">Median Query Latency</div><div class="text-lg font-extrabold text-emerald-400 mt-1">${qMs} ms</div></div>`;
+
+      const blueprints = {
+        "1M": { label: "1M Records (~1.2 GB)", mongo: "1 Shard (3-node RS)", cassandra: "3-node Ring (RF=2)", neo4j: "Single Instance", hw: "8 GB RAM / 20 GB NVMe" },
+        "10M": { label: "10M Records (~12 GB)", mongo: "2&ndash;3 Shards (Hashed/Ranged)", cassandra: "3&ndash;5 Nodes (RF=3)", neo4j: "Cluster (4&ndash;8 GB Heap)", hw: "32 GB RAM / 100 GB NVMe" },
+        "100M": { label: "100M Records (~120 GB)", mongo: "6&ndash;8 Shards + Config RS", cassandra: "6&ndash;12 Nodes (RF=3)", neo4j: "Causal Cluster / Sharded Graph", hw: "128 GB RAM / 500+ GB NVMe" }
+      };
+      const bp = blueprints[scale];
+      document.getElementById("l18ScaleCard").innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+          <span class="text-xs font-bold uppercase text-emerald-400">Horizontal Scaling Blueprint &bull; ${bp.label}</span>
+          <span class="text-xs font-mono text-slate-400">Hardware Tier: ${bp.hw}</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+          <div class="bg-[#030712] border border-slate-800 rounded-lg p-2.5"><span class="text-slate-400">MongoDB:</span> <strong class="text-white">${bp.mongo}</strong></div>
+          <div class="bg-[#030712] border border-slate-800 rounded-lg p-2.5"><span class="text-slate-400">Cassandra:</span> <strong class="text-white">${bp.cassandra}</strong></div>
+          <div class="bg-[#030712] border border-slate-800 rounded-lg p-2.5"><span class="text-slate-400">Neo4j:</span> <strong class="text-white">${bp.neo4j}</strong></div>
+        </div>`;
+    }
+
+    buildSidebar();
+    renderThreatCards();
+    switchTab(1);
+    updateAcidUi();
+    renderLab11();
+    renderLab12();
+    renderLab13();
+    renderLab14();
+    renderLab15();
+    renderLab16(false);
+    renderLab17();
+    renderLab18();
+    const LAB_TAB_MAP = {1:2,2:2,3:2,4:2,5:2,6:2,7:3,8:4,9:5,10:6,11:6,12:6,13:6,14:6,15:6,16:6,17:6,18:6};
+    function handleDeepLink() {
+      const params = new URLSearchParams(window.location.search);
+      const qLab = Number(params.get("lab"));
+      const hashMatch = window.location.hash.match(/lab-card-(\d+)/);
+      const targetLab = qLab || (hashMatch ? Number(hashMatch[1]) : 0);
+      if (targetLab >= 1 && targetLab <= 18 && LAB_TAB_MAP[targetLab]) {
+        openLabFromSidebar(targetLab, LAB_TAB_MAP[targetLab]);
+      }
+    }
+    handleDeepLink();
+  </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+services:
+  configsvr:
+    image: mongo:7
+    container_name: lab11-configsvr
+    command: ["--configsvr", "--replSet", "cfgrs", "--bind_ip_all", "--port", "27019"]
+    healthcheck:
+      test: ["CMD", "mongosh", "--port", "27019", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  shard1:
+    image: mongo:7
+    container_name: lab11-shard1
+    command: ["--shardsvr", "--replSet", "shard1rs", "--bind_ip_all", "--port", "27018"]
+    healthcheck:
+      test: ["CMD", "mongosh", "--port", "27018", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  shard2:
+    image: mongo:7
+    container_name: lab11-shard2
+    command: ["--shardsvr", "--replSet", "shard2rs", "--bind_ip_all", "--port", "27018"]
+    healthcheck:
+      test: ["CMD", "mongosh", "--port", "27018", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  cluster-init:
+    image: mongo:7
+    depends_on:
+      configsvr:
+        condition: service_healthy
+      shard1:
+        condition: service_healthy
+      shard2:
+        condition: service_healthy
+    entrypoint: >
+      bash -c "
+      mongosh --host configsvr:27019 --eval 'rs.initiate({_id: \"cfgrs\", configsvr: true, members: [{_id: 0, host: \"configsvr:27019\"}]})' &&
+      mongosh --host shard1:27018 --eval 'rs.initiate({_id: \"shard1rs\", members: [{_id: 0, host: \"shard1:27018\"}]})' &&
+      mongosh --host shard2:27018 --eval 'rs.initiate({_id: \"shard2rs\", members: [{_id: 0, host: \"shard2:27018\"}]})' &&
+      sleep 4
+      "
+
+  mongos:
+    image: mongo:7
+    container_name: lab11-mongos
+    command: ["mongos", "--configdb", "cfgrs/configsvr:27019", "--bind_ip_all", "--port", "27017"]
+    depends_on:
+      cluster-init:
+        condition: service_completed_successfully
+    ports:
+      - "27017:27017"
+    healthcheck:
+      test: ["CMD", "mongosh", "--port", "27017", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  shards-init:
+    image: mongo:7
+    depends_on:
+      mongos:
+        condition: service_healthy
+    entrypoint: >
+      mongosh --host mongos:27017 --eval '
+      sh.addShard("shard1rs/shard1:27018");
+      sh.addShard("shard2rs/shard2:27018");
+      sh.status();
+      '
+
+  lab11-app:
+    build: .
+    image: rayhaan369/nosql-lab-11:latest
+    depends_on:
+      shards-init:
+        condition: service_completed_successfully
+    environment:
+      MONGO_URI: mongodb://mongos:27017/
+      DB_NAME: nosql_lab11_sharding

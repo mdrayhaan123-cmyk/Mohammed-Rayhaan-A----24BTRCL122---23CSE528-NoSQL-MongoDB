@@ -1,0 +1,160 @@
+[
+  {
+    "report_id": "CTI-2026-001",
+    "title": "Check Point Cybersecurity Report 2026: AI-Assisted Phishing & Ransomware",
+    "vendor": "Check Point",
+    "year": 2026,
+    "category": "Ransomware",
+    "severity": "Critical",
+    "is_actual_threat": true,
+    "source_id": "SRC-AWESOME-01",
+    "summary": "Analyzes global ransomware campaigns, cloud perimeter exposures, and AI-generated phishing lures.",
+    "tags": [
+      "ransomware",
+      "phishing",
+      "ai-threats",
+      "cloud"
+    ],
+    "iocs": [
+      {
+        "type": "domain",
+        "value": "login-update-verify.example",
+        "confidence": 92
+      },
+      {
+        "type": "sha256",
+        "value": "e3b0c44298fc1c149afbf4c8996fb924",
+        "confidence": 95
+      }
+    ],
+    "_id": {
+      "$oid": "966584a4954f4700aa9d663c"
+    }
+  },
+  {
+    "report_id": "CTI-2026-002",
+    "title": "Google Cybersecurity Forecast 2026: Zero-Day Exploitation & Cloud Identity",
+    "vendor": "Google Cloud / GTIG",
+    "year": 2026,
+    "category": "Cloud Security",
+    "severity": "High",
+    "is_actual_threat": true,
+    "source_id": "SRC-AWESOME-01",
+    "summary": "Highlights state-sponsored actors using LLMs for reconnaissance and targeting cloud identity tokens.",
+    "tags": [
+      "cloud",
+      "identity",
+      "zero-day",
+      "llm-malware"
+    ],
+    "iocs": [
+      {
+        "type": "ip",
+        "value": "198.51.100.42",
+        "confidence": 88
+      }
+    ],
+    "_id": {
+      "$oid": "30181958468f49679ef34daf"
+    }
+  },
+  {
+    "report_id": "CTI-2026-003",
+    "title": "WithSecure Supply Chain Threat Report: Transitive Dependency Intrusions",
+    "vendor": "WithSecure",
+    "year": 2025,
+    "category": "Supply Chain",
+    "severity": "High",
+    "is_actual_threat": true,
+    "source_id": "SRC-CTI-01",
+    "summary": "Upstream and downstream vendor dependency intrusions surged by 38% across open-source ecosystems.",
+    "tags": [
+      "supply-chain",
+      "open-source",
+      "ci-cd"
+    ],
+    "iocs": [
+      {
+        "type": "package",
+        "value": "malicious-helper-pkg@1.0.4",
+        "confidence": 90
+      }
+    ],
+    "_id": {
+      "$oid": "c038430e268142368269e313"
+    }
+  },
+  {
+    "report_id": "CTI-2026-004",
+    "title": "Seqrite India Cyber Threat Report 2026: Endpoint Trojans & Healthcare Targeting",
+    "vendor": "Seqrite",
+    "year": 2026,
+    "category": "Malware",
+    "severity": "High",
+    "is_actual_threat": true,
+    "source_id": "SRC-AWESOME-01",
+    "summary": "Telemetry from 8M+ endpoints shows Trojans constitute nearly 70% of malicious detections, hitting healthcare and education.",
+    "tags": [
+      "trojans",
+      "endpoints",
+      "healthcare",
+      "ransomware"
+    ],
+    "iocs": [
+      {
+        "type": "sha256",
+        "value": "9f86d081884c7d659a2feaa0c55ad015",
+        "confidence": 94
+      }
+    ],
+    "_id": {
+      "$oid": "4b662efd491c4d74b8d65ca3"
+    }
+  },
+  {
+    "report_id": "CTI-2026-005",
+    "title": "APWG Phishing Activity Trends Report 2026",
+    "vendor": "APWG",
+    "year": 2026,
+    "category": "Phishing",
+    "severity": "Medium",
+    "is_actual_threat": true,
+    "source_id": "SRC-CTI-01",
+    "summary": "Tracks worldwide phishing attack volume and brand impersonation trends in Q1 2026.",
+    "tags": [
+      "phishing",
+      "brand-impersonation",
+      "email"
+    ],
+    "iocs": [
+      {
+        "type": "url",
+        "value": "https://secure-auth-check.example/login",
+        "confidence": 85
+      }
+    ],
+    "_id": {
+      "$oid": "a4195d96788542b39b0e0617"
+    }
+  },
+  {
+    "report_id": "CTI-2026-006",
+    "title": "Unverified Port Scan Chatter on Public Paste",
+    "vendor": "Community OSINT",
+    "year": 2026,
+    "category": "Reconnaissance",
+    "severity": "Low",
+    "is_actual_threat": false,
+    "source_id": "SRC-OSINT-02",
+    "summary": "Routine automated scanner noise reported on public paste; classified as non-actionable false positive.",
+    "tags": [
+      "scanner",
+      "noise",
+      "false-positive"
+    ],
+    "iocs": [],
+    "_id": {
+      "$oid": "a5b3c5e720904c87b753ba3a"
+    }
+  }
+]

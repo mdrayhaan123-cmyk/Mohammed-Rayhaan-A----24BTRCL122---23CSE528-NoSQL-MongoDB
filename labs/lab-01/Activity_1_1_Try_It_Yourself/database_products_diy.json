@@ -1,0 +1,90 @@
+[
+  {
+    "name": "Amazon DynamoDB",
+    "family": "Key-Value / Document",
+    "data_model": "Key-Value & JSON Document",
+    "vendor": "AWS",
+    "use_case": "Shopping carts, session state, serverless backends",
+    "open_source": false,
+    "_id": {
+      "$oid": "b152c5255e804a538fa2bbc7"
+    }
+  },
+  {
+    "name": "InfluxDB",
+    "family": "Time-Series",
+    "data_model": "Time-Stamped Measurements & Tags",
+    "vendor": "InfluxData",
+    "use_case": "IoT sensor metrics, DevOps monitoring, real-time telemetry",
+    "open_source": true,
+    "_id": {
+      "$oid": "5a1579f3739941698b3be2ea"
+    }
+  },
+  {
+    "name": "OrientDB",
+    "family": "Multi-Model",
+    "data_model": "Document + Graph Hybrid",
+    "vendor": "SAP / OrientDB",
+    "use_case": "Fraud detection, master data management, social graphs",
+    "open_source": true,
+    "_id": {
+      "$oid": "43920579d6a74095b4725b61"
+    }
+  },
+  {
+    "name": "ScyllaDB",
+    "family": "Wide-Column",
+    "data_model": "Column-Family (C++ Cassandra-compatible)",
+    "vendor": "ScyllaDB Inc.",
+    "use_case": "Low-latency ad-tech, IoT ingestion, messaging",
+    "open_source": true,
+    "_id": {
+      "$oid": "a33452f86e8749a1870be734"
+    }
+  },
+  {
+    "name": "ArangoDB",
+    "family": "Multi-Model",
+    "data_model": "Document + Graph + Key-Value",
+    "vendor": "ArangoDB Inc.",
+    "use_case": "Knowledge graphs, identity resolution, microservices",
+    "open_source": true,
+    "_id": {
+      "$oid": "c6a1108f4e88431f98041f18"
+    }
+  },
+  {
+    "name": "Riak KV",
+    "family": "Key-Value",
+    "data_model": "Distributed Key-Value (Dynamo-style)",
+    "vendor": "TIOT / Basho",
+    "use_case": "High-availability session stores, shopping carts",
+    "open_source": true,
+    "_id": {
+      "$oid": "2c6d445793d445fd8ecc9997"
+    }
+  },
+  {
+    "name": "Apache CouchDB",
+    "family": "Document",
+    "data_model": "JSON Document (MVCC + HTTP API)",
+    "vendor": "Apache",
+    "use_case": "Offline-first mobile sync, distributed web apps",
+    "open_source": true,
+    "_id": {
+      "$oid": "bdd5157a9786414f93ef6332"
+    }
+  },
+  {
+    "name": "TigerGraph",
+    "family": "Graph",
+    "data_model": "Native Parallel Property Graph",
+    "vendor": "TigerGraph",
+    "use_case": "Deep-link analytics, supply chain, anti-money laundering",
+    "open_source": false,
+    "_id": {
+      "$oid": "c9ed6de2d3f04d9bb32f9f80"
+    }
+  }
+]

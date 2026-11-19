@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo
+spec:
+  serviceName: mongo-headless-svc
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      initContainers:
+        - name: keyfile-init
+          image: alpine:3.20
+          command:
+            - sh
+            - -c
+            - |
+              apk add --no-cache openssl &&
+              openssl rand -base64 756 > /etc/mongodb/keyfile &&
+              chmod 400 /etc/mongodb/keyfile &&
+              chown 999:999 /etc/mongodb/keyfile
+          volumeMounts:
+            - name: keyfile-vol
+              mountPath: /etc/mongodb
+      containers:
+        - name: mongod
+          image: mongo:7
+          command:
+            - mongod
+            - --replSet
+            - rs0
+            - --keyFile
+            - /etc/mongodb/keyfile
+            - --bind_ip
+            - 0.0.0.0
+          ports:
+            - containerPort: 27017
+              name: mongodb
+          readinessProbe:
+            tcpSocket:
+              port: 27017
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          volumeMounts:
+            - name: mongo-data
+              mountPath: /data/db
+            - name: keyfile-vol
+              mountPath: /etc/mongodb
+      volumes:
+        - name: keyfile-vol
+          emptyDir: {}
+  volumeClaimTemplates:
+    - metadata:
+        name: mongo-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 5Gi

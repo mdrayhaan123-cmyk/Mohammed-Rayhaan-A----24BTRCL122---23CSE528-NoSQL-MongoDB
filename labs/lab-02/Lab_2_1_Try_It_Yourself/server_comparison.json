@@ -1,0 +1,26 @@
+[
+  {
+    "deployment": "Docker MongoDB (Local)",
+    "uri_target": "mongodb://localhost:27017",
+    "version": "7.0.14",
+    "git_version": "ce59cfc6a3c5",
+    "storage_engines": "devnull, wiredTiger",
+    "max_bson_mb": 16.0,
+    "modules": "community",
+    "_id": {
+      "$oid": "c31b20b7017a4ffba083157a"
+    }
+  },
+  {
+    "deployment": "MongoDB Atlas (Cloud)",
+    "uri_target": "mongodb+srv://cluster0.example.mongodb.net/",
+    "version": "8.0.4",
+    "git_version": "bc35ab4305d9",
+    "storage_engines": "wiredTiger",
+    "max_bson_mb": 16.0,
+    "modules": "enterprise",
+    "_id": {
+      "$oid": "58ea14900b9c4866a9c86c48"
+    }
+  }
+]

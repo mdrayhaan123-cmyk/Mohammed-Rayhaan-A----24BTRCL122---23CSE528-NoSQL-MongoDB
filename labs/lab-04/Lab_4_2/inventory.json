@@ -1,0 +1,39 @@
+[
+  {
+    "sku": "WGT-001",
+    "name": "SmartWatch Pro",
+    "price": 279.99,
+    "stock": 25,
+    "_id": {
+      "$oid": "2a5e7978ec0b4b0887baac93"
+    }
+  },
+  {
+    "sku": "WGT-002",
+    "name": "FitBand Lite",
+    "price": 40.49,
+    "stock": 200,
+    "_id": {
+      "$oid": "1d03a43ddb3b4c6d8e404a15"
+    }
+  },
+  {
+    "sku": "WGT-003",
+    "name": "SmartRing X",
+    "price": 199.99,
+    "stock": 100,
+    "_id": {
+      "$oid": "4e7ee58e87ec497e80cd3672"
+    },
+    "active": true
+  },
+  {
+    "sku": "WGT-004",
+    "name": "EarBuds Ultra",
+    "price": 79.99,
+    "stock": 150,
+    "_id": {
+      "$oid": "9b4dc17ddc8c4561b1944c68"
+    }
+  }
+]

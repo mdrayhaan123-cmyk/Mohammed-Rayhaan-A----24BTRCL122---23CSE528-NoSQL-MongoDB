@@ -1,0 +1,24 @@
+[
+  {
+    "title": "Scaling MongoDB to Millions of Users",
+    "author": "arjun",
+    "total_comments": 10000,
+    "recent_comments": [
+      {
+        "author": "reader9998",
+        "text": "Great breakdown of the Subset pattern!"
+      },
+      {
+        "author": "reader9999",
+        "text": "How do you paginate the remaining comments?"
+      },
+      {
+        "author": "reader10000",
+        "text": "Using a compound index on (post_id, created_at) works well."
+      }
+    ],
+    "_id": {
+      "$oid": "7c3c4075d8fe479c9526d4ab"
+    }
+  }
+]

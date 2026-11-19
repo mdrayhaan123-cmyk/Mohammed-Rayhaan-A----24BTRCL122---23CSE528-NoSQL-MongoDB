@@ -1,0 +1,57 @@
+services:
+  cert-gen:
+    build: .
+    image: rayhaan369/nosql-lab-12:latest
+    volumes:
+      - lab12_certs:/certs
+    environment:
+      CERT_DIR: /certs
+    command: ["python", "cert_manager.py"]
+
+  mongo12:
+    image: mongo:7
+    container_name: lab12-mongo
+    depends_on:
+      cert-gen:
+        condition: service_completed_successfully
+    volumes:
+      - lab12_certs:/certs:ro
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: adminUser
+      MONGO_INITDB_ROOT_PASSWORD: AdminPass123!
+    command:
+      - "--auth"
+      - "--tlsMode"
+      - "requireTLS"
+      - "--tlsCertificateKeyFile"
+      - "/certs/server.pem"
+      - "--tlsCAFile"
+      - "/certs/ca.crt"
+      - "--bind_ip_all"
+    ports:
+      - "27022:27017"
+    healthcheck:
+      test: ["CMD", "mongosh", "--tls", "--tlsCAFile", "/certs/ca.crt", "--tlsCertificateKeyFile", "/certs/client.pem", "--host", "localhost", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  lab12-app:
+    build: .
+    image: rayhaan369/nosql-lab-12:latest
+    depends_on:
+      mongo12:
+        condition: service_healthy
+    volumes:
+      - lab12_certs:/certs:ro
+    environment:
+      MONGO_HOST: mongo12
+      MONGO_PORT: "27017"
+      MONGO_TLS: "true"
+      CERT_DIR: /certs
+      MONGO_ADMIN_USER: adminUser
+      MONGO_ADMIN_PASS: AdminPass123!
+      DB_NAME: lab_12
+
+volumes:
+  lab12_certs:

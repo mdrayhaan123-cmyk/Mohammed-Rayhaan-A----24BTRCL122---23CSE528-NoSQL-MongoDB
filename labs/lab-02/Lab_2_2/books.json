@@ -1,0 +1,83 @@
+[
+  {
+    "title": "The Pragmatic Programmer",
+    "author": "David Thomas & Andrew Hunt",
+    "year": 2019,
+    "genre": "Software Engineering",
+    "price": 54.99,
+    "isbn": "978-0135957059",
+    "tags": [
+      "programming",
+      "career",
+      "best-practices"
+    ],
+    "publisher": {
+      "name": "Addison-Wesley",
+      "location": "Boston"
+    },
+    "_id": {
+      "$oid": "bcdbe9d358614bddb5e4e5ab"
+    }
+  },
+  {
+    "title": "Designing Data-Intensive Applications",
+    "author": "Martin Kleppmann",
+    "year": 2017,
+    "genre": "Databases",
+    "price": 50.59,
+    "isbn": "978-1449373320",
+    "tags": [
+      "databases",
+      "distributed-systems",
+      "architecture"
+    ],
+    "publisher": {
+      "name": "O'Reilly Media",
+      "location": "Sebastopol"
+    },
+    "_id": {
+      "$oid": "525de8c2741b4374856c8fde"
+    }
+  },
+  {
+    "title": "Deep Learning",
+    "author": "Ian Goodfellow, Yoshua Bengio, Aaron Courville",
+    "year": 2016,
+    "genre": "Machine Learning",
+    "price": 79.2,
+    "isbn": "978-0262035613",
+    "tags": [
+      "AI",
+      "neural-networks",
+      "theory"
+    ],
+    "publisher": {
+      "name": "MIT Press",
+      "location": "Cambridge"
+    },
+    "_id": {
+      "$oid": "6a2eabc282604440be5e45ce"
+    }
+  },
+  {
+    "title": "Hands-On Machine Learning",
+    "author": "Aurelien Geron",
+    "year": 2022,
+    "genre": "Machine Learning",
+    "price": 65.99,
+    "isbn": "978-1098125974",
+    "tags": [
+      "AI",
+      "scikit-learn",
+      "tensorflow",
+      "practical"
+    ],
+    "publisher": {
+      "name": "O'Reilly Media",
+      "location": "Sebastopol"
+    },
+    "_id": {
+      "$oid": "7fd5f4da7b6a479cb9a89caa"
+    }
+  }
+]

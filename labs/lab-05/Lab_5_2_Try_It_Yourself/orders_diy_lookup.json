@@ -1,0 +1,56 @@
+[
+  {
+    "order_id": "ORD-401",
+    "customer_id": "C001",
+    "total": 450,
+    "status": "completed",
+    "_id": {
+      "$oid": "18c3ed95ed534d9194c9a6ca"
+    }
+  },
+  {
+    "order_id": "ORD-402",
+    "customer_id": "C001",
+    "total": 90,
+    "status": "completed",
+    "_id": {
+      "$oid": "eaafa122abd4412385fe49fb"
+    }
+  },
+  {
+    "order_id": "ORD-403",
+    "customer_id": "C002",
+    "total": 310,
+    "status": "cancelled",
+    "_id": {
+      "$oid": "b221aa52fc2f42a59862c65a"
+    }
+  },
+  {
+    "order_id": "ORD-404",
+    "customer_id": "C002",
+    "total": 220,
+    "status": "completed",
+    "_id": {
+      "$oid": "38ce004a6f58473b8557946e"
+    }
+  },
+  {
+    "order_id": "ORD-405",
+    "customer_id": "C003",
+    "total": 780,
+    "status": "completed",
+    "_id": {
+      "$oid": "745b3ffa59374745a2c625b4"
+    }
+  },
+  {
+    "order_id": "ORD-406",
+    "customer_id": "C003",
+    "total": 120,
+    "status": "pending",
+    "_id": {
+      "$oid": "14b4704644804122a6c8ba38"
+    }
+  }
+]

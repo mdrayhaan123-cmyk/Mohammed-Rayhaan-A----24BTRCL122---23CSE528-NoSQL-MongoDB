@@ -1,0 +1,83 @@
+[
+  {
+    "order_id": "ORD-301",
+    "customer": "Arjun",
+    "total": 18.5,
+    "status": "completed",
+    "_id": {
+      "$oid": "679ded11cd58496c86f5ae26"
+    }
+  },
+  {
+    "order_id": "ORD-302",
+    "customer": "Sneha",
+    "total": 34.99,
+    "status": "completed",
+    "_id": {
+      "$oid": "04b37cc643404db0858638c1"
+    }
+  },
+  {
+    "order_id": "ORD-303",
+    "customer": "Rahul",
+    "total": 45.0,
+    "status": "completed",
+    "_id": {
+      "$oid": "76c1cdfd0a6e462b8074940e"
+    }
+  },
+  {
+    "order_id": "ORD-304",
+    "customer": "Kavya",
+    "total": 75.0,
+    "status": "completed",
+    "_id": {
+      "$oid": "f4280bcbd1ed4033931d98f8"
+    }
+  },
+  {
+    "order_id": "ORD-305",
+    "customer": "Divya",
+    "total": 120.5,
+    "status": "completed",
+    "_id": {
+      "$oid": "9b2e8333368f4ab0bc50b90a"
+    }
+  },
+  {
+    "order_id": "ORD-306",
+    "customer": "Arjun",
+    "total": 185.0,
+    "status": "completed",
+    "_id": {
+      "$oid": "31a42000c04c4cafa5f6d8a9"
+    }
+  },
+  {
+    "order_id": "ORD-307",
+    "customer": "Sneha",
+    "total": 260.0,
+    "status": "completed",
+    "_id": {
+      "$oid": "7ed104e086f043bd9711a4bd"
+    }
+  },
+  {
+    "order_id": "ORD-308",
+    "customer": "Rahul",
+    "total": 450.0,
+    "status": "completed",
+    "_id": {
+      "$oid": "d41ee888193e4fd0981bf64d"
+    }
+  },
+  {
+    "order_id": "ORD-309",
+    "customer": "Vikram",
+    "total": 890.0,
+    "status": "completed",
+    "_id": {
+      "$oid": "ede086866f51467e83a38ac0"
+    }
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "_id": 0,
+    "host": "mongo-rs0-1:27017",
+    "initial_role": "PRIMARY",
+    "priority": 2,
+    "votes": 1,
+    "post_stepdown_role": "SECONDARY (Stepped Down)"
+  },
+  {
+    "_id": 1,
+    "host": "mongo-rs0-2:27018",
+    "initial_role": "SECONDARY",
+    "priority": 5,
+    "votes": 1,
+    "post_stepdown_role": "PRIMARY (Elected)"
+  },
+  {
+    "_id": 2,
+    "host": "mongo-rs0-3:27019",
+    "initial_role": "SECONDARY",
+    "priority": 1,
+    "votes": 1,
+    "post_stepdown_role": "SECONDARY"
+  }
+]

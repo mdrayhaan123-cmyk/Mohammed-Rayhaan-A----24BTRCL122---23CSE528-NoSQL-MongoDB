@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CTI Sentinel AI &mdash; System Vulnerability Scanner &amp; LLM Threat Advisor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #030712; color: #f8fafc; }
+    code, pre, .font-mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="min-h-screen p-4 sm:p-6 max-w-[1440px] mx-auto">
+  <header class="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-slate-800">
+    <div>
+      <div class="flex items-center gap-2.5">
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-950 text-emerald-400 border border-emerald-700/60">23CSE528 CAPSTONE</span>
+        <h1 class="text-xl sm:text-2xl font-extrabold text-white">CTI Sentinel LLM Threat Advisor</h1>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-400 mt-1">RAG Threat Intelligence (Anticipated, Active, Evolving, Resolved) + Whole-System Vulnerability Scanner Bot</p>
+    </div>
+    <div class="flex flex-wrap items-center gap-3">
+      <div id="healthPill" class="px-3.5 py-1.5 rounded-full bg-[#0b1120] border border-slate-800 text-xs font-mono text-emerald-400">
+        Connecting to MongoDB RAG...
+      </div>
+      <a href="http://127.0.0.1:8080/?lab=18" target="_blank" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-sky-400 border border-slate-700">
+        Open Labs 1&ndash;18 Telemetry &nearr;
+      </a>
+    </div>
+  </header>
+
+  <main class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
+    <!-- LEFT: PLATFORM & LIFECYCLE FILTERS + WHOLE-SYSTEM SCANNER BOT -->
+    <aside class="lg:col-span-4 space-y-5">
+      <div class="bg-[#0b1120] border border-slate-800 rounded-2xl p-4 space-y-3.5">
+        <h2 class="text-sm font-bold uppercase tracking-wider text-sky-400">1. Threat Context Filter</h2>
+        <div>
+          <label class="block text-xs text-slate-400 mb-1">Target OS / Platform</label>
+          <select id="platformSel" onchange="loadFindings()" class="w-full bg-[#030712] border border-slate-700 rounded-xl px-3 py-2 text-sm text-white">
+            <option value="ALL">All Platforms (Cross-OS)</option>
+            <option value="Windows">Windows</option>
+            <option value="Linux">Linux</option>
+            <option value="macOS">macOS</option>
+            <option value="Android">Android</option>
+            <option value="iOS">iOS</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-slate-400 mb-1">Threat Lifecycle Stage</label>
+          <select id="lifecycleSel" class="w-full bg-[#030712] border border-slate-700 rounded-xl px-3 py-2 text-sm text-white">
+            <option value="ALL">All States (Anticipated / Active / Evolving / Resolved)</option>
+            <option value="Anticipated">Anticipated Threats</option>
+            <option value="Active">Active Threats</option>
+            <option value="Evolving">Evolving Threats</option>
+            <option value="Resolved">Resolved Threats</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-slate-400 mb-1">MongoDB Session Memory ID</label>
+          <input id="sessionInput" type="text" value="rayhaan-24btrcl122" class="w-full bg-[#030712] border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-emerald-400" />
+        </div>
+      </div>
+
+      <div class="bg-[#0b1120] border border-slate-800 rounded-2xl p-4 space-y-3">
+        <div class="flex items-center justify-between gap-2">
+          <h2 class="text-sm font-bold uppercase tracking-wider text-amber-400">2. Whole-System Scanner Bot</h2>
+          <div class="flex gap-1.5">
+            <button id="scanBtn" onclick="triggerScan(false)" class="px-2.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs cursor-pointer">
+              Scan System
+            </button>
+            <button id="rescanBtn" onclick="triggerScan(true)" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-600/50 font-bold text-xs cursor-pointer">
+              Fresh Re-Scan
+            </button>
+          </div>
+        </div>
+        <div>
+          <label class="block text-[11px] text-slate-400 mb-1">Scan Scope (Whole User Profile or Specific Folder)</label>
+          <input id="scanPathInput" type="text" value="C:/Users/mdray" class="w-full bg-[#030712] border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs font-mono text-slate-200" />
+        </div>
+        <div id="scanStatusBanner" class="p-2.5 rounded-xl bg-[#030712] border border-slate-800 text-[11px] font-mono text-emerald-400">
+          Ready to scan live OS ports, Defender, Firewall, ExecutionPolicy &amp; secret files.
+        </div>
+        <div id="findingsList" class="space-y-2.5 max-h-[340px] overflow-y-auto"></div>
+      </div>
+    </aside>
+
+    <!-- RIGHT: LLM RAG CHAT CONSOLE -->
+    <section class="lg:col-span-8 bg-[#0b1120] border border-slate-800 rounded-2xl p-5 flex flex-col min-h-[620px]">
+      <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-800">
+        <div>
+          <h2 class="text-base font-bold text-white">Conversational CTI &amp; Mitigation Assistant</h2>
+          <p class="text-xs text-slate-400">Grounded via MongoDB Vector RAG + Persistent <code class="text-sky-400">sessions</code> Memory</p>
+        </div>
+        <div class="flex flex-wrap gap-1.5">
+          <button onclick="quickAsk('What Active Critical threats affect Windows and how do I mitigate them?')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-200 cursor-pointer">Windows Active</button>
+          <button onclick="quickAsk('Show Evolving macOS and Linux threats with exact remediation commands.')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-200 cursor-pointer">Linux/macOS Evolving</button>
+          <button onclick="quickAsk('What Anticipated zero-click threats target iOS or Android?')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-200 cursor-pointer">Mobile Anticipated</button>
+        </div>
+      </div>
+
+      <div id="chatBox" class="flex-1 overflow-y-auto py-4 space-y-3.5 text-xs sm:text-sm">
+        <div class="bg-[#060b16] border border-slate-800 rounded-2xl p-4 text-slate-200">
+          <div class="text-xs font-mono text-emerald-400 font-bold mb-1">CTI SENTINEL AI &bull; READY</div>
+          Click <strong>Scan System</strong> or <strong>Fresh Re-Scan</strong> on the left to audit your whole Windows system (ports, Defender, Firewall, ExecutionPolicy, and workspace secrets) plus cross-platform threats, then approve remediation over chat.
+        </div>
+      </div>
+
+      <form onsubmit="sendChat(event)" class="pt-3 border-t border-slate-800 flex gap-2.5">
+        <input id="chatInput" type="text" required placeholder="Ask about platform threats, CVEs, mitigation steps, or type 'confirm VULN-WIN-101'..."
+          class="flex-1 bg-[#030712] border border-slate-700 focus:border-emerald-500 focus:outline-none rounded-xl px-4 py-2.5 text-sm text-white" />
+        <button type="submit" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm cursor-pointer">
+          Send
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const API = window.location.origin.startsWith("http") ? window.location.origin : "http://127.0.0.1:8000";
+
+    async function checkHealth() {
+      try {
+        const r = await fetch(`${API}/health?t=${Date.now()}`);
+        const d = await r.json();
+        document.getElementById("healthPill").textContent = `MongoDB: ${d.mongodb} | Host: ${d.host_platform} | Docs: ${d.knowledge_chunks}`;
+      } catch (e) {
+        document.getElementById("healthPill").textContent = "Backend Offline (Start port 8000)";
+      }
+    }
+
+    async function loadFindings() {
+      const plat = document.getElementById("platformSel").value;
+      try {
+        const r = await fetch(`${API}/findings?platform=${plat}&t=${Date.now()}`);
+        const d = await r.json();
+        const wrap = document.getElementById("findingsList");
+        wrap.innerHTML = (d.findings || []).map(f => {
+          const isFixed = f.status === "MITIGATED";
+          return `
+            <div class="bg-[#060b16] border ${isFixed ? 'border-emerald-800/70' : 'border-amber-700/60'} rounded-xl p-3 space-y-1.5">
+              <div class="flex items-center justify-between text-[11px] font-mono">
+                <span class="text-sky-400 font-bold">${f.finding_id} &bull; ${f.platform}</span>
+                <span class="px-2 py-0.5 rounded ${isFixed ? 'bg-emerald-950 text-emerald-400' : 'bg-rose-950 text-rose-400'} font-bold">${f.status}</span>
+              </div>
+              <div class="text-xs font-bold text-white">${f.title} (${f.cve})</div>
+              <div class="text-[11px] text-slate-400">${f.detail}</div>
+              ${isFixed
+                ? `<div class="text-[11px] text-emerald-400 font-mono">Mitigated: ${f.remediation_action}</div>`
+                : `<button onclick="quickAsk('confirm ${f.finding_id}')" class="w-full mt-1 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/50 text-emerald-300 font-bold text-xs cursor-pointer">Confirm &amp; Mitigate via Chat</button>`
+              }
+            </div>`;
+        }).join("");
+      } catch (e) {}
+    }
+
+    async function triggerScan(forceRescan = false) {
+      const plat = document.getElementById("platformSel").value;
+      const scanPath = document.getElementById("scanPathInput").value;
+      const banner = document.getElementById("scanStatusBanner");
+      const btn = document.getElementById("scanBtn");
+      btn.textContent = "Scanning...";
+      banner.textContent = `Scanning system (${scanPath}) & auditing live OS ports/policies...`;
+      try {
+        const r = await fetch(`${API}/scan/trigger`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ platform: plat, project_path: scanPath, force_rescan: forceRescan })
+        });
+        const d = await r.json();
+        const t = d.telemetry || {};
+        const pendingCount = (d.findings || []).filter(x => x.status !== "MITIGATED").length;
+        banner.innerHTML = `<strong>Scan Complete (${new Date().toLocaleTimeString()})</strong><br/>Host: ${t.host || 'Local'} | Open Ports: [${(t.open_ports || []).join(', ')}]<br/>ExecPolicy: ${t.execution_policy || 'N/A'} | Defender RT: ${t.defender_realtime || 'N/A'} | Pending: ${pendingCount}`;
+      } catch (e) {
+        banner.textContent = "Scan error: ensure Uvicorn is running on port 8000.";
+      } finally {
+        btn.textContent = "Scan System";
+        await loadFindings();
+        await checkHealth();
+      }
+    }
+
+    function appendBubble(role, text, meta = "") {
+      const box = document.getElementById("chatBox");
+      const isUser = role === "user";
+      const safe = text.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br/>");
+      box.innerHTML += `
+        <div class="${isUser ? 'bg-sky-950/60 border-sky-800/70 ml-10' : 'bg-[#060b16] border-slate-800 mr-6'} border rounded-2xl p-4">
+          <div class="text-[11px] font-mono ${isUser ? 'text-sky-400' : 'text-emerald-400'} font-bold mb-1">
+            ${isUser ? 'ANALYST' : 'CTI SENTINEL AI'} ${meta ? '&bull; ' + meta : ''}
+          </div>
+          <div class="text-slate-100 leading-relaxed">${safe}</div>
+        </div>`;
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function quickAsk(txt) {
+      document.getElementById("chatInput").value = txt;
+      sendChat(new Event("submit"));
+    }
+
+    async function sendChat(e) {
+      e.preventDefault();
+      const inp = document.getElementById("chatInput");
+      const msg = inp.value.trim();
+      if (!msg) return;
+      inp.value = "";
+      appendBubble("user", msg);
+
+      const payload = {
+        message: msg,
+        session_id: document.getElementById("sessionInput").value.trim() || "default",
+        platform: document.getElementById("platformSel").value,
+        lifecycle: document.getElementById("lifecycleSel").value
+      };
+      try {
+        const r = await fetch(`${API}/chat`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const d = await r.json();
+        const refs = (d.sources || []).map(s => `${s.doc_id} (${s.similarity})`).join(", ");
+        appendBubble("assistant", d.answer || d.detail, `${d.engine || 'RAG'} ${refs ? '| Sources: ' + refs : ''}`);
+        await loadFindings();
+        await checkHealth();
+      } catch (err) {
+        appendBubble("assistant", "Connection error: ensure FastAPI server is running on port 8000.");
+      }
+    }
+
+    checkHealth();
+    loadFindings();
+  </script>
+</body>
+</html>

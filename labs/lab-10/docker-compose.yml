@@ -1,0 +1,47 @@
+services:
+  mongo1:
+    image: mongo:7
+    container_name: lab10-mongo1
+    command: ["--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
+    ports:
+      - "27017:27017"
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  mongo2:
+    image: mongo:7
+    container_name: lab10-mongo2
+    command: ["--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
+
+  mongo3:
+    image: mongo:7
+    container_name: lab10-mongo3
+    command: ["--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
+
+  mongo-init:
+    image: mongo:7
+    depends_on:
+      mongo1:
+        condition: service_healthy
+    entrypoint: >
+      mongosh --host mongo1:27017 --eval '
+      try { rs.status(); } catch (e) {
+        rs.initiate({_id: "rs0", members: [
+          {_id: 0, host: "mongo1:27017", priority: 2},
+          {_id: 1, host: "mongo2:27017", priority: 1},
+          {_id: 2, host: "mongo3:27017", priority: 1}
+        ]});
+      }'
+
+  lab10-app:
+    build: .
+    image: rayhaan369/nosql-lab-10:latest
+    depends_on:
+      mongo-init:
+        condition: service_completed_successfully
+    environment:
+      MONGO_URI: mongodb://mongo1:27017,mongo2:27017,mongo3:27017/?replicaSet=rs0
+      DB_NAME: nosql_lab10_transactions

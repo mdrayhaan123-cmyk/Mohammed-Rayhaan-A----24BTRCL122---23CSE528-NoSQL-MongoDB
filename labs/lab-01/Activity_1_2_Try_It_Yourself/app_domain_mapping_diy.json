@@ -1,0 +1,98 @@
+[
+  {
+    "app": "E-Commerce Platform",
+    "domain": "product_catalog",
+    "description": "Diverse product SKUs with varying attributes (size, color, specs, reviews)",
+    "read_write_pattern": "Read-heavy, faceted filtering, occasional updates",
+    "recommended_family": "Document",
+    "recommended_db": "MongoDB",
+    "rationale": "Polymorphic product schemas fit naturally into flexible JSON/BSON documents",
+    "_id": {
+      "$oid": "764734056734458894a73d14"
+    }
+  },
+  {
+    "app": "E-Commerce Platform",
+    "domain": "shopping_cart",
+    "description": "Active user cart items and temporary session state",
+    "read_write_pattern": "Low-latency read/write, TTL expiry for abandoned carts",
+    "recommended_family": "Key-Value",
+    "recommended_db": "Redis",
+    "rationale": "Sub-millisecond in-memory access and native key expiration",
+    "_id": {
+      "$oid": "5dcabf5b65a547b6a1ad2c77"
+    }
+  },
+  {
+    "app": "E-Commerce Platform",
+    "domain": "product_search",
+    "description": "Full-text keyword search, autocomplete, and relevance ranking",
+    "read_write_pattern": "Search-heavy, inverted index queries",
+    "recommended_family": "Search/Document",
+    "recommended_db": "Elasticsearch",
+    "rationale": "Inverted index, fuzzy matching, and real-time faceted aggregations",
+    "_id": {
+      "$oid": "8705d66561b54dbd98b8654d"
+    }
+  },
+  {
+    "app": "E-Commerce Platform",
+    "domain": "recommendation_graph",
+    "description": "Customers-who-bought-X-also-bought-Y and co-purchase networks",
+    "read_write_pattern": "Multi-hop graph traversals",
+    "recommended_family": "Graph",
+    "recommended_db": "Neo4j",
+    "rationale": "Fast traversal of user-product purchase relationships",
+    "_id": {
+      "$oid": "59b46fe95b864b19aef06a04"
+    }
+  },
+  {
+    "app": "IoT Smart Home",
+    "domain": "device_registry",
+    "description": "Smart thermostats, cameras, locks, firmware versions, and room metadata",
+    "read_write_pattern": "Read-heavy, infrequent configuration updates",
+    "recommended_family": "Document",
+    "recommended_db": "MongoDB",
+    "rationale": "Nested device capabilities and per-manufacturer metadata",
+    "_id": {
+      "$oid": "bf6fe86d479c4ce8ae35f95c"
+    }
+  },
+  {
+    "app": "IoT Smart Home",
+    "domain": "sensor_telemetry",
+    "description": "Continuous temperature, humidity, and power usage readings every second",
+    "read_write_pattern": "High-volume append-only writes, time-range scans",
+    "recommended_family": "Wide-Column",
+    "recommended_db": "Apache Cassandra",
+    "rationale": "Linear write scaling and time-bucketed partitioning",
+    "_id": {
+      "$oid": "19c36fb7b3e74e9ca18a546d"
+    }
+  },
+  {
+    "app": "IoT Smart Home",
+    "domain": "live_device_state",
+    "description": "Current online/offline status and latest trigger flags per device",
+    "read_write_pattern": "Frequent overwrites and instant dashboard lookups",
+    "recommended_family": "Key-Value",
+    "recommended_db": "Redis",
+    "rationale": "O(1) key lookups and pub/sub notifications for instant alerts",
+    "_id": {
+      "$oid": "7b52b6445d344aaeaedb4f2a"
+    }
+  },
+  {
+    "app": "IoT Smart Home",
+    "domain": "video_clips_archive",
+    "description": "Motion-triggered security camera footage and snapshots",
+    "read_write_pattern": "Write-once binary blobs, lifecycle archival",
+    "recommended_family": "Object/Key-Value",
+    "recommended_db": "Amazon S3",
+    "rationale": "Durable, cost-effective object storage with automated tiering",
+    "_id": {
+      "$oid": "d6804b16e3c44ebc82d29969"
+    }
+  }
+]

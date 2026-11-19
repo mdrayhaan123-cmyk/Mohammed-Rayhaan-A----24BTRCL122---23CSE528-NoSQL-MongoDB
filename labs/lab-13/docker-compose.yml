@@ -1,0 +1,117 @@
+services:
+  keyfile-init:
+    image: alpine:3.20
+    volumes:
+      - lab13_keyfile:/keyfile
+    command: >
+      sh -c "
+      apk add --no-cache openssl &&
+      openssl rand -base64 756 > /keyfile/mongodb-keyfile &&
+      chmod 400 /keyfile/mongodb-keyfile &&
+      chown 999:999 /keyfile/mongodb-keyfile
+      "
+
+  mongo1:
+    image: mongo:7
+    container_name: lab13-mongo1
+    depends_on:
+      keyfile-init:
+        condition: service_completed_successfully
+    volumes:
+      - lab13_keyfile:/etc/mongodb:ro
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: adminUser
+      MONGO_INITDB_ROOT_PASSWORD: AdminPass123!
+    command: ["mongod", "--replSet", "rs0", "--keyFile", "/etc/mongodb/mongodb-keyfile", "--bind_ip_all"]
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  mongo2:
+    image: mongo:7
+    container_name: lab13-mongo2
+    depends_on:
+      keyfile-init:
+        condition: service_completed_successfully
+    volumes:
+      - lab13_keyfile:/etc/mongodb:ro
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: adminUser
+      MONGO_INITDB_ROOT_PASSWORD: AdminPass123!
+    command: ["mongod", "--replSet", "rs0", "--keyFile", "/etc/mongodb/mongodb-keyfile", "--bind_ip_all"]
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  mongo3:
+    image: mongo:7
+    container_name: lab13-mongo3
+    depends_on:
+      keyfile-init:
+        condition: service_completed_successfully
+    volumes:
+      - lab13_keyfile:/etc/mongodb:ro
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: adminUser
+      MONGO_INITDB_ROOT_PASSWORD: AdminPass123!
+    command: ["mongod", "--replSet", "rs0", "--keyFile", "/etc/mongodb/mongodb-keyfile", "--bind_ip_all"]
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  rs-init:
+    image: mongo:7
+    depends_on:
+      mongo1:
+        condition: service_healthy
+      mongo2:
+        condition: service_healthy
+      mongo3:
+        condition: service_healthy
+    entrypoint: >
+      mongosh --host mongo1:27017 -u adminUser -p AdminPass123! --authenticationDatabase admin --eval '
+      rs.initiate({
+        _id: "rs0",
+        members: [
+          {_id: 0, host: "mongo1:27017", priority: 2},
+          {_id: 1, host: "mongo2:27017", priority: 1},
+          {_id: 2, host: "mongo3:27017", priority: 1}
+        ]
+      });
+      sleep(5000);
+      printjson(rs.status().members.map(m => ({name: m.name, state: m.stateStr, health: m.health})));
+      '
+
+  mongodb-exporter:
+    image: percona/mongodb_exporter:0.40
+    container_name: lab13-prometheus-exporter
+    depends_on:
+      rs-init:
+        condition: service_completed_successfully
+    command:
+      - "--mongodb.uri=mongodb://adminUser:AdminPass123!@mongo1:27017/admin?directConnection=true"
+      - "--collect-all"
+    ports:
+      - "9216:9216"
+
+  lab13-app:
+    build: .
+    image: rayhaan369/nosql-lab-13:latest
+    depends_on:
+      rs-init:
+        condition: service_completed_successfully
+      mongodb-exporter:
+        condition: service_started
+    environment:
+      MONGO_URI: "mongodb://adminUser:AdminPass123!@mongo1:27017,mongo2:27017,mongo3:27017/lab_13?authSource=admin&replicaSet=rs0"
+      DB_NAME: "lab_13"
+      EXPORTER_URL: "http://mongodb-exporter:9216/metrics"
+
+volumes:
+  lab13_keyfile:

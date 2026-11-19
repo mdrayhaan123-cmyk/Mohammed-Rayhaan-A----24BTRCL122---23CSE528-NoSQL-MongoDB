@@ -1,0 +1,62 @@
+[
+  {
+    "course_code": "AIML101",
+    "course_name": "Introduction to Machine Learning",
+    "instructor": "Dr. Priya Sharma",
+    "credits": 4,
+    "prerequisite_codes": [],
+    "schedule": {
+      "days": [
+        "Monday",
+        "Wednesday"
+      ],
+      "time": "10:00-11:30",
+      "room": "LH-201"
+    },
+    "_id": {
+      "$oid": "88d2aabf87794d438c905f93"
+    }
+  },
+  {
+    "course_code": "AIML201",
+    "course_name": "Natural Language Processing",
+    "instructor": "Dr. Meera Joshi",
+    "credits": 3,
+    "prerequisite_codes": [
+      "AIML101"
+    ],
+    "schedule": {
+      "days": [
+        "Monday",
+        "Wednesday",
+        "Friday"
+      ],
+      "time": "09:00-10:00",
+      "room": "LH-102"
+    },
+    "_id": {
+      "$oid": "9f62a46589d146a589700bce"
+    }
+  },
+  {
+    "course_code": "AIML301",
+    "course_name": "Deep Learning with PyTorch",
+    "instructor": "Dr. Anil Gupta",
+    "credits": 3,
+    "prerequisite_codes": [
+      "AIML101",
+      "AIML201"
+    ],
+    "schedule": {
+      "days": [
+        "Tuesday",
+        "Thursday"
+      ],
+      "time": "14:00-15:30",
+      "room": "LH-305"
+    },
+    "_id": {
+      "$oid": "d3d43db479f9402cb08c3f58"
+    }
+  }
+]

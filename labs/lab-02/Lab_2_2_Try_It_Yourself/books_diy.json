@@ -1,0 +1,123 @@
+[
+  {
+    "title": "The Pragmatic Programmer",
+    "author": "David Thomas & Andrew Hunt",
+    "year": 2019,
+    "genre": "Software Engineering",
+    "price": 49.99,
+    "isbn": "978-0135957059",
+    "tags": [
+      "programming",
+      "career",
+      "best-practices"
+    ],
+    "publisher": {
+      "name": "Addison-Wesley",
+      "location": "Boston"
+    },
+    "_id": {
+      "$oid": "1c4b4a52f9614180b27a04c9"
+    }
+  },
+  {
+    "title": "Designing Data-Intensive Applications",
+    "author": "Martin Kleppmann",
+    "year": 2017,
+    "genre": "Databases",
+    "price": 45.99,
+    "isbn": "978-1449373320",
+    "tags": [
+      "databases",
+      "distributed-systems",
+      "architecture"
+    ],
+    "publisher": {
+      "name": "O'Reilly Media",
+      "location": "Sebastopol"
+    },
+    "_id": {
+      "$oid": "eb73e02914be4b79a21975f9"
+    }
+  },
+  {
+    "title": "Deep Learning",
+    "author": "Ian Goodfellow, Yoshua Bengio, Aaron Courville",
+    "year": 2016,
+    "genre": "Machine Learning",
+    "price": 72.0,
+    "isbn": "978-0262035613",
+    "tags": [
+      "AI",
+      "neural-networks",
+      "theory"
+    ],
+    "publisher": {
+      "name": "MIT Press",
+      "location": "Cambridge"
+    },
+    "_id": {
+      "$oid": "87e8ac50b41141e98771b338"
+    }
+  },
+  {
+    "title": "Clean Code",
+    "author": "Robert C. Martin",
+    "year": 2008,
+    "genre": "Software Engineering",
+    "price": 43.99,
+    "isbn": "978-0132350884",
+    "tags": [
+      "programming",
+      "clean-code",
+      "refactoring"
+    ],
+    "publisher": {
+      "name": "Prentice Hall",
+      "location": "Upper Saddle River"
+    },
+    "_id": {
+      "$oid": "2034169d910c42bf9b84a2a8"
+    }
+  },
+  {
+    "title": "Hands-On Machine Learning",
+    "author": "Aurelien Geron",
+    "year": 2022,
+    "genre": "Machine Learning",
+    "price": 59.99,
+    "isbn": "978-1098125974",
+    "tags": [
+      "AI",
+      "scikit-learn",
+      "tensorflow",
+      "practical"
+    ],
+    "publisher": {
+      "name": "O'Reilly Media",
+      "location": "Sebastopol"
+    },
+    "_id": {
+      "$oid": "d377654622dd4ff9a67c4a7a"
+    }
+  },
+  {
+    "title": "Refactoring (1st Edition)",
+    "author": "Martin Fowler",
+    "year": 1999,
+    "genre": "Software Engineering",
+    "price": 48.4,
+    "isbn": "978-0201485677",
+    "tags": [
+      "programming",
+      "refactoring",
+      "object-oriented"
+    ],
+    "publisher": {
+      "name": "Addison-Wesley",
+      "location": "Boston"
+    },
+    "_id": {
+      "$oid": "b8ec4063261142638f271b48"
+    }
+  }
+]

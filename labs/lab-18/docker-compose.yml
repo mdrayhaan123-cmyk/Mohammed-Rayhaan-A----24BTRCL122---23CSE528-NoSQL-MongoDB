@@ -1,0 +1,20 @@
+services:
+  mongo18:
+    image: mongo:7
+    container_name: lab18-mongo
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  lab18-app:
+    build: .
+    image: rayhaan369/nosql-lab-18:latest
+    depends_on:
+      mongo18:
+        condition: service_healthy
+    environment:
+      MONGO_URI: "mongodb://mongo18:27017/"
+      DB_NAME: "lab_18"
+      THREAT_COUNT: "100000"

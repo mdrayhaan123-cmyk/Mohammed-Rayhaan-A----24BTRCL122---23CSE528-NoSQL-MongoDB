@@ -1,0 +1,14 @@
+[
+  {
+    "_id": {
+      "$oid": "673b00000000000000000201"
+    },
+    "lab": "Lab 2.1: Environment Setup Verification",
+    "python_version": "3.11.2",
+    "pymongo_version": "4.10.1",
+    "mongo_local": "7.0.14 [OK]",
+    "mongo_atlas": "CONNECTED [OK]",
+    "core_checks_passed": "4/5",
+    "status": "READY"
+  }
+]

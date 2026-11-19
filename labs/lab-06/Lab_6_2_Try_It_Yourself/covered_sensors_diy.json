@@ -1,0 +1,402 @@
+[
+  {
+    "sensor_id": "SENSOR-0000",
+    "reading": 20.0,
+    "status": "active",
+    "_id": {
+      "$oid": "77db6d4d38bd4ee3a1631ead"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0001",
+    "reading": 20.5,
+    "status": "active",
+    "_id": {
+      "$oid": "ed64626571144ad689e7cae8"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0002",
+    "reading": 21.0,
+    "status": "active",
+    "_id": {
+      "$oid": "6015e3ba9126403b91eab226"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0003",
+    "reading": 21.5,
+    "status": "active",
+    "_id": {
+      "$oid": "b57ad0901a03406a85882688"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0004",
+    "reading": 22.0,
+    "status": "active",
+    "_id": {
+      "$oid": "b6339b54126f4800b8baaa51"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0005",
+    "reading": 22.5,
+    "status": "active",
+    "_id": {
+      "$oid": "3685d269befc495cb0760f9a"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0006",
+    "reading": 23.0,
+    "status": "active",
+    "_id": {
+      "$oid": "57aa797bef8649cdb1e10662"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0007",
+    "reading": 23.5,
+    "status": "active",
+    "_id": {
+      "$oid": "2afbb417138a4d18a3562b63"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0008",
+    "reading": 24.0,
+    "status": "active",
+    "_id": {
+      "$oid": "524b369ed81a4238a2e511c7"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0009",
+    "reading": 24.5,
+    "status": "active",
+    "_id": {
+      "$oid": "9c3dbecf221b43389bd6803d"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0010",
+    "reading": 25.0,
+    "status": "active",
+    "_id": {
+      "$oid": "3ddd1a329ece4ce6902c1354"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0011",
+    "reading": 25.5,
+    "status": "active",
+    "_id": {
+      "$oid": "6e2b2726838246129aa3a1c5"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0012",
+    "reading": 26.0,
+    "status": "active",
+    "_id": {
+      "$oid": "cff4a589405247f0901fbebd"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0013",
+    "reading": 26.5,
+    "status": "active",
+    "_id": {
+      "$oid": "f5d52779eaca4421a9469916"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0014",
+    "reading": 27.0,
+    "status": "active",
+    "_id": {
+      "$oid": "39e9be50d0bc446583305ff4"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0015",
+    "reading": 27.5,
+    "status": "active",
+    "_id": {
+      "$oid": "cc651e7b20e747faae89b97e"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0016",
+    "reading": 28.0,
+    "status": "active",
+    "_id": {
+      "$oid": "72283fdc100144fd8b83f457"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0017",
+    "reading": 28.5,
+    "status": "active",
+    "_id": {
+      "$oid": "9e1d63958f214d2e96624c07"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0018",
+    "reading": 29.0,
+    "status": "active",
+    "_id": {
+      "$oid": "e3a3b0249fcf4c4bb2229d7d"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0019",
+    "reading": 29.5,
+    "status": "active",
+    "_id": {
+      "$oid": "675088fb3e80449398606e79"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0020",
+    "reading": 30.0,
+    "status": "active",
+    "_id": {
+      "$oid": "6b68a0f0057c4c70856c5670"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0021",
+    "reading": 30.5,
+    "status": "active",
+    "_id": {
+      "$oid": "8566ec4213d94d2d9fed9812"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0022",
+    "reading": 31.0,
+    "status": "active",
+    "_id": {
+      "$oid": "d2080a79598f4d7a85d05cf2"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0023",
+    "reading": 31.5,
+    "status": "active",
+    "_id": {
+      "$oid": "59928aeb00a947b5b0ff6a0c"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0024",
+    "reading": 32.0,
+    "status": "active",
+    "_id": {
+      "$oid": "7ce9bd903c564904b366bc11"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0025",
+    "reading": 32.5,
+    "status": "active",
+    "_id": {
+      "$oid": "d0d220a7b4404ab4ae4486e4"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0026",
+    "reading": 33.0,
+    "status": "active",
+    "_id": {
+      "$oid": "2bb05c5ec4b641b1aca9d5a5"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0027",
+    "reading": 33.5,
+    "status": "active",
+    "_id": {
+      "$oid": "5e501bb795de40ee804fee74"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0028",
+    "reading": 34.0,
+    "status": "active",
+    "_id": {
+      "$oid": "3d399c9b23814c98918762eb"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0029",
+    "reading": 34.5,
+    "status": "active",
+    "_id": {
+      "$oid": "bdfbdf349f744aaebaf08436"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0030",
+    "reading": 35.0,
+    "status": "active",
+    "_id": {
+      "$oid": "01dafed84f024d0eae53b57d"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0031",
+    "reading": 35.5,
+    "status": "active",
+    "_id": {
+      "$oid": "1e38c82c78c7421ca89e535f"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0032",
+    "reading": 36.0,
+    "status": "active",
+    "_id": {
+      "$oid": "d4d1b35c8abc488d8e501e5f"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0033",
+    "reading": 36.5,
+    "status": "active",
+    "_id": {
+      "$oid": "1011aaf88fde4eee910b16f1"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0034",
+    "reading": 37.0,
+    "status": "active",
+    "_id": {
+      "$oid": "b827f99d68f94e69a6664b8a"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0035",
+    "reading": 37.5,
+    "status": "active",
+    "_id": {
+      "$oid": "92bcd6e76e014257970cc385"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0036",
+    "reading": 38.0,
+    "status": "active",
+    "_id": {
+      "$oid": "2b6b8aba2c4f428d95b05ad1"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0037",
+    "reading": 38.5,
+    "status": "active",
+    "_id": {
+      "$oid": "aedb31a67d634f3b9bfde8d4"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0038",
+    "reading": 39.0,
+    "status": "active",
+    "_id": {
+      "$oid": "5c9548be97d446319d7c633f"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0039",
+    "reading": 39.5,
+    "status": "active",
+    "_id": {
+      "$oid": "22286558bfa94267972ae6df"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0040",
+    "reading": 40.0,
+    "status": "active",
+    "_id": {
+      "$oid": "0add5140225c4a4ca4583443"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0041",
+    "reading": 40.5,
+    "status": "active",
+    "_id": {
+      "$oid": "20fe6b58f7ca457e8fc4b3cb"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0042",
+    "reading": 41.0,
+    "status": "active",
+    "_id": {
+      "$oid": "e72e930148f249e4a8559575"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0043",
+    "reading": 41.5,
+    "status": "active",
+    "_id": {
+      "$oid": "e2e727bfb7004dc7bb00f2cd"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0044",
+    "reading": 42.0,
+    "status": "active",
+    "_id": {
+      "$oid": "dcaba03bd1a546a79dce5e56"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0045",
+    "reading": 42.5,
+    "status": "active",
+    "_id": {
+      "$oid": "ff0a4279e49b4f63a53580ae"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0046",
+    "reading": 43.0,
+    "status": "active",
+    "_id": {
+      "$oid": "3a8e906784a94f5598caa6c2"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0047",
+    "reading": 43.5,
+    "status": "active",
+    "_id": {
+      "$oid": "103d4efc08b349fe9c565024"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0048",
+    "reading": 44.0,
+    "status": "active",
+    "_id": {
+      "$oid": "5b7263938f4c4a2b9bd651eb"
+    }
+  },
+  {
+    "sensor_id": "SENSOR-0049",
+    "reading": 44.5,
+    "status": "active",
+    "_id": {
+      "$oid": "52d53dd1a9a84c3b89aed1e6"
+    }
+  }
+]

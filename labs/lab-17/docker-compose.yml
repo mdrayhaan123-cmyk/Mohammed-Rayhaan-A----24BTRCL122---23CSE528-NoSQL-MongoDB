@@ -1,0 +1,19 @@
+services:
+  mongo17:
+    image: mongo:7
+    container_name: lab17-mongo
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  lab17-app:
+    build: .
+    image: rayhaan369/nosql-lab-17:latest
+    depends_on:
+      mongo17:
+        condition: service_healthy
+    environment:
+      MONGO_URI: "mongodb://mongo17:27017/"
+      DB_NAME: "rag_demo"

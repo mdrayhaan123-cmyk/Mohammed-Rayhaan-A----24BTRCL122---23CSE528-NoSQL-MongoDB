@@ -1,0 +1,20 @@
+services:
+  mongo15:
+    image: mongo:7
+    container_name: lab15-mongo
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  lab15-app:
+    build: .
+    image: rayhaan369/nosql-lab-15:latest
+    depends_on:
+      mongo15:
+        condition: service_healthy
+    environment:
+      MONGO_URI: "mongodb://mongo15:27017/"
+      DB_NAME: "lab_15"
+      RATE_LIMIT_MAX: "10"
