@@ -26,7 +26,7 @@ def has_gemini_key() -> bool:
 
 def _format_findings_context(findings: List[Dict[str, Any]]) -> str:
     if not findings:
-        return "No scanner or knowledge-base records currently loaded."
+        return "None"
     lines = []
     for f in findings[:25]:
         fid = f.get("id") or f.get("vuln_id") or "UNKNOWN"
@@ -49,6 +49,8 @@ def _format_history(history: List[Dict[str, str]]) -> str:
     return "\n".join(f"{m.get('role', 'user').upper()}: {m.get('content', '')}" for m in recent)
 
 
+from backend.system_inspector import get_hardware_specs, run_live_threat_scan
+
 def ask_gemini_cti(
     question: str,
     findings: Optional[List[Dict[str, Any]]] = None,
@@ -59,53 +61,50 @@ def ask_gemini_cti(
     api_key = get_clean_api_key()
     if not api_key:
         raise RuntimeError("GEMINI_API_KEY is missing in .env")
-
     client = genai.Client(api_key=api_key)
 
-    system_instruction = (
-        "You are CTI Sentinel AI, a responsive, intelligent cybersecurity and general-purpose assistant. "
-        "CRITICAL RULES:\n"
-        "1. Answer EVERY question and sub-question the user asks completely, clearly, and directly—whether it is "
-        "a general knowledge question, programming/academic topic, cybersecurity concept, or a CTI/system audit query.\n"
-        "2. When scanner findings or MongoDB knowledge-base records are provided, cite exact IDs (e.g., VULN-WIN-101), "
-        "CVE numbers, exact remediation commands, and clearly state whether any unresolved/active risks remain.\n"
-        "3. Use clean Markdown with bullet points and code blocks for commands."
+    q_low = question.lower()
+    force_scan = any(k in q_low for k in ("scan", "threat", "vuln", "security", "virus", "malware", "port", "firewall", "defender", "verify", "audit", "check system"))
+    live_specs = get_hardware_specs()
+    live_threats = run_live_threat_scan(force=force_scan)
+
+    sys_msg = (
+        "You are CTI Sentinel AI, a natural, helpful assistant with live read-access to the user's Windows system. "
+        "Chat naturally and concisely like a normal chatbot, matching the user's length and tone. "
+        "Do NOT dump giant audit tables unless the user asks for a full system threat verification/audit. "
+        "If the user asks about their laptop/PC specs, answer directly using LIVE HOST HARDWARE SPECS. "
+        "If the user asks to verify threats or check system security, analyze LIVE SYSTEM THREAT TELEMETRY "
+        "(ports, external connections, Defender, Firewall, ExecutionPolicy, RDP/SMB, startup items, secret files) "
+        "alongside any relevant MongoDB findings, clearly flagging real risks vs safe controls."
     )
-
-    prompt = f"""ACTIVE UI FILTERS: Platform={platform_filter}, Lifecycle={lifecycle_filter}
-
-MONGODB KNOWLEDGE BASE & LIVE SYSTEM SCANNER FINDINGS:
-{_format_findings_context(findings or [])}
-
-RECENT CONVERSATION HISTORY:
-{_format_history(history or [])}
-
-USER QUESTION (answer every part thoroughly):
-{question}
-"""
-
-    last_error = "No compatible Gemini models responded."
-
+    prompt = (
+        f"LIVE HOST HARDWARE SPECS:\n{live_specs}\n\n"
+        f"LIVE SYSTEM THREAT TELEMETRY:\n{live_threats}\n\n"
+        f"MONGODB FINDINGS (Filters: {platform_filter}/{lifecycle_filter}):\n"
+        f"{_format_findings_context(findings or [])}\n\n"
+        f"HISTORY:\n{_format_history(history or [])}\n\n"
+        f"USER: {question}"
+    )
+    last_err = "No compatible Gemini models responded."
     for model_name in dict.fromkeys([m for m in FAST_MODELS if m]):
         for attempt in range(2):
             try:
-                response = client.models.generate_content(
+                res = client.models.generate_content(
                     model=model_name,
                     contents=prompt,
                     config=types.GenerateContentConfig(
-                        system_instruction=system_instruction,
-                        temperature=0.35,
-                        max_output_tokens=1400,
+                        system_instruction=sys_msg,
+                        temperature=0.5,
+                        max_output_tokens=1024,
                     ),
                 )
-                text = (response.text or "").strip()
-                if text:
-                    return text, model_name
+                txt = (res.text or "").strip()
+                if txt:
+                    return txt, model_name
             except Exception as exc:
-                last_error = f"{model_name}: {exc}"
+                last_err = f"{model_name}: {exc}"
                 if "429" in str(exc) or "503" in str(exc):
                     time.sleep(1.0 * (attempt + 1))
                     continue
                 break
-
-    raise RuntimeError(last_error)
+    raise RuntimeError(last_err)
