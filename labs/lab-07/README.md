@@ -1,4 +1,4 @@
-# Cyber Threat Intelligence (CTI) Platform — Lab 7.1 & 7.2
+﻿# Cyber Threat Intelligence (CTI) Platform — Lab 7.1 & 7.2
 
 Consolidates **Lab 7.1 (Production Schema Analysis)** and **Lab 7.2 (Working Set & WiredTiger Cache Analysis)** into a full-stack Cyber Threat Intelligence platform backed by MongoDB (`lab_7` database).
 
@@ -25,3 +25,7 @@ Consolidates **Lab 7.1 (Production Schema Analysis)** and **Lab 7.2 (Working Set
 
 ## Live Web Interface
 - **Live CTI Sentinel Dashboard:** [http://127.0.0.1:8080/?lab=7](http://127.0.0.1:8080/?lab=7)
+
+## CTI Sentinel Integration & Verification Reference
+- **Active LLM Model (`GEMINI_MODEL`):** `gemini-3.5-flash-lite` (configured in `.env` for free-tier quota stability).
+- **Live Telemetry & MongoDB RAG Check:** Run `"Give me a full security and system briefing: check my laptop specs and whether VS Code and Docker are installed, run a live Windows threat scan across Defender, firewall, ports, and secret files, and correlate the results with my MongoDB CTI findings."` in CTI Sentinel (`http://127.0.0.1:8000`).
