@@ -104,19 +104,39 @@ def get_history(session_id: str, n: int = 5) -> list[dict]:
     return [{"role": m["role"], "content": m["content"]} for m in msgs]
 
 def generate_llm_response(user_msg: str, platform_filter: str, lifecycle_filter: str, chunks: list[dict], history: list[dict]) -> tuple[str, str]:
+    gemini_err = ""
     if has_gemini_key():
         try:
             return ask_gemini_cti(user_msg, chunks, history, platform_filter, lifecycle_filter)
-        except Exception:
-            pass
+        except Exception as exc:
+            gemini_err = str(exc)
 
     q = (user_msg or "").strip()
     ql = q.lower()
 
+    if ql in ("hi", "hello", "hey", "hi!", "hello!"):
+        return (
+            "Hello! CTI Sentinel AI is active. Ask me about your installed software (e.g., VS Code, Docker, Python), "
+            "Windows hardware/security posture, or any CVE/vulnerability in your MongoDB knowledge base."
+        ), "local-assistant"
+
+    if any(w in ql for w in ("vs code", "vscode", "visual studio", "installed", "software", "apps", "docker", "python", "git")):
+        from backend.system_inspector import get_installed_apps
+        apps_str = get_installed_apps()
+        if any(k in ql for k in ("vs code", "vscode", "visual studio")):
+            has_vscode = "visual studio code" in apps_str.lower()
+            status = "Yes — **Visual Studio Code** is installed on this Windows host." if has_vscode else "No — Visual Studio Code was not detected."
+            return f"{status}\n\n**Detected Dev Tools & Apps:** {apps_str}", "local-system-inspector"
+        return f"**Installed Windows Software & CLI Tools:**\n{apps_str}", "local-system-inspector"
+
+    if any(w in ql for w in ("spec", "specs", "laptop", "hardware", "ram", "cpu", "gpu")):
+        from backend.system_inspector import get_hardware_specs
+        return f"**Live Host Hardware Specs:**\n{get_hardware_specs()}", "local-system-inspector"
+
     if any(w in ql for w in ("what can you do", "what can u do", "capabilities", "help", "features")):
         return (
-            "I can answer general questions, explain concepts, help with coding/technical topics, and query your CTI Sentinel MongoDB knowledge base & scanner findings.\n\n"
-            "- **General Q&A & Explanations:** Ask any everyday, academic, or technical question.\n"
+            "I can answer general questions, inspect your Windows system/software inventory, and query your CTI Sentinel MongoDB knowledge base & scanner findings.\n\n"
+            "- **Host Inventory & Specs:** Check installed apps (VS Code, Docker, Python, Git) and hardware telemetry.\n"
             "- **Threat & CVE Lookup:** Filter by platform (`Windows`, `Linux`, `macOS`, `Android`, `iOS`) and lifecycle (`Anticipated`, `Active`, `Evolving`, `Resolved`).\n"
             "- **Host Scan & Mitigation:** Run system scans and confirm fixes (e.g., `confirm VULN-WIN-101`) with MongoDB persistence."
         ), "cti-assistant"
@@ -143,16 +163,10 @@ def generate_llm_response(user_msg: str, platform_filter: str, lifecycle_filter:
             )
         return "\n\n".join(out), "mongodb-rag-synthesizer"
 
-    recent_context = ""
-    if history:
-        prior_user = [m.get("content", "") for m in history if m.get("role") == "user" and m.get("content", "").strip() != q]
-        if prior_user:
-            recent_context = f" (Continuing from your earlier topic: *\"{prior_user[-1][:80]}\"*)"
-
+    reason = gemini_err[:140] if gemini_err else "Gemini API unavailable"
     return (
-        f"You asked: **\"{q}\"**{recent_context}.\n\n"
-        "The external Gemini endpoint timed out on this request, so I am running in local assistant mode without pre-canned CVE templates. "
-        "Please retry in a moment for full generative LLM answers, or ask a specific question about your MongoDB threats, CVEs, ports, or remediation commands."
+        f"You asked: **\"{q}\"**.\n\n"
+        f"Running in local assistant mode ({reason}). You can still ask about installed software (e.g., VS Code), system specs, or MongoDB CVEs and remediations."
     ), "local-assistant"
 
 @app.get("/")

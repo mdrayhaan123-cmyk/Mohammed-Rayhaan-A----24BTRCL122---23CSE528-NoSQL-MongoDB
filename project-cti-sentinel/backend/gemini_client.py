@@ -4,15 +4,11 @@ from typing import Any, Dict, List, Optional, Tuple
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
+from backend.system_inspector import get_hardware_specs, get_installed_apps, run_live_threat_scan
 
 load_dotenv(override=True)
 
-FAST_MODELS = [
-    os.getenv("GEMINI_MODEL", "gemini-3.1-flash-lite").strip(),
-    "gemini-3.1-flash-lite",
-    "gemini-3.5-flash",
-    "gemini-2.5-flash",
-]
+_CACHED_MODELS: List[str] = []
 
 
 def get_clean_api_key() -> str:
@@ -22,6 +18,40 @@ def get_clean_api_key() -> str:
 
 def has_gemini_key() -> bool:
     return len(get_clean_api_key()) >= 20
+
+
+def _discover_models(client: genai.Client) -> List[str]:
+    global _CACHED_MODELS
+    if _CACHED_MODELS:
+        return _CACHED_MODELS
+
+    skip_tokens = (
+        "embedding", "imagen", "veo", "tts", "audio",
+        "robotics", "computer-use", "deep-research", "image",
+        "gemini-4-", "gemini-2.5-",
+    )
+    flash_lite, flash = [], []
+    try:
+        for m in client.models.list():
+            name = (getattr(m, "name", "") or "").replace("models/", "").strip()
+            low = name.lower()
+            actions = getattr(m, "supported_actions", []) or []
+            if "gemini" not in low or any(t in low for t in skip_tokens):
+                continue
+            if actions and "generateContent" not in actions:
+                continue
+            if "flash-lite" in low:
+                flash_lite.append(name)
+            elif "flash" in low:
+                flash.append(name)
+    except Exception:
+        pass
+
+    pinned = os.getenv("GEMINI_MODEL", "").strip()
+    ordered = list(dict.fromkeys(([pinned] if pinned else []) + flash_lite + flash))
+    if ordered:
+        _CACHED_MODELS = ordered
+    return ordered or ["gemini-3.5-flash-lite", "gemini-3.1-flash-lite"]
 
 
 def _format_findings_context(findings: List[Dict[str, Any]]) -> str:
@@ -49,8 +79,6 @@ def _format_history(history: List[Dict[str, str]]) -> str:
     return "\n".join(f"{m.get('role', 'user').upper()}: {m.get('content', '')}" for m in recent)
 
 
-from backend.system_inspector import get_hardware_specs, run_live_threat_scan
-
 def ask_gemini_cti(
     question: str,
     findings: Optional[List[Dict[str, Any]]] = None,
@@ -61,32 +89,44 @@ def ask_gemini_cti(
     api_key = get_clean_api_key()
     if not api_key:
         raise RuntimeError("GEMINI_API_KEY is missing in .env")
-    client = genai.Client(api_key=api_key)
 
-    q_low = question.lower()
-    force_scan = any(k in q_low for k in ("scan", "threat", "vuln", "security", "virus", "malware", "port", "firewall", "defender", "verify", "audit", "check system"))
-    live_specs = get_hardware_specs()
-    live_threats = run_live_threat_scan(force=force_scan)
+    client = genai.Client(
+        api_key=api_key,
+        http_options=types.HttpOptions(timeout=30_000),
+    )
+
+    q_low = question.lower().strip()
+    force_scan = any(
+        k in q_low
+        for k in ("scan", "threat", "vuln", "security", "virus", "malware", "port", "firewall", "defender", "verify", "audit", "check system")
+    )
+    needs_sys = force_scan or any(
+        k in q_low
+        for k in ("vs code", "vscode", "visual studio", "installed", "software", "app", "spec", "laptop", "ram", "cpu", "gpu", "windows", "docker", "python", "git")
+    )
+
+    live_specs = get_hardware_specs() if needs_sys else "Available on request"
+    live_apps = get_installed_apps() if needs_sys else "Available on request"
+    live_threats = run_live_threat_scan(force=force_scan) if force_scan else "Available on request"
 
     sys_msg = (
-        "You are CTI Sentinel AI, a natural, helpful assistant with live read-access to the user's Windows system. "
-        "Chat naturally and concisely like a normal chatbot, matching the user's length and tone. "
-        "Do NOT dump giant audit tables unless the user asks for a full system threat verification/audit. "
-        "If the user asks about their laptop/PC specs, answer directly using LIVE HOST HARDWARE SPECS. "
-        "If the user asks to verify threats or check system security, analyze LIVE SYSTEM THREAT TELEMETRY "
-        "(ports, external connections, Defender, Firewall, ExecutionPolicy, RDP/SMB, startup items, secret files) "
-        "alongside any relevant MongoDB findings, clearly flagging real risks vs safe controls."
+        "You are CTI Sentinel AI, a helpful conversational assistant with live read-access to the user's Windows system. "
+        "Chat naturally and concisely like a normal assistant, matching the user's tone and length. "
+        "Use LIVE HOST HARDWARE SPECS and LIVE INSTALLED SOFTWARE when asked about specs or installed apps, "
+        "and analyze LIVE SYSTEM THREAT TELEMETRY alongside MongoDB findings when asked to check or scan threats."
     )
     prompt = (
         f"LIVE HOST HARDWARE SPECS:\n{live_specs}\n\n"
+        f"LIVE INSTALLED SOFTWARE:\n{live_apps}\n\n"
         f"LIVE SYSTEM THREAT TELEMETRY:\n{live_threats}\n\n"
         f"MONGODB FINDINGS (Filters: {platform_filter}/{lifecycle_filter}):\n"
         f"{_format_findings_context(findings or [])}\n\n"
         f"HISTORY:\n{_format_history(history or [])}\n\n"
         f"USER: {question}"
     )
-    last_err = "No compatible Gemini models responded."
-    for model_name in dict.fromkeys([m for m in FAST_MODELS if m]):
+
+    errors: List[str] = []
+    for model_name in _discover_models(client):
         for attempt in range(2):
             try:
                 res = client.models.generate_content(
@@ -102,9 +142,10 @@ def ask_gemini_cti(
                 if txt:
                     return txt, model_name
             except Exception as exc:
-                last_err = f"{model_name}: {exc}"
-                if "429" in str(exc) or "503" in str(exc):
-                    time.sleep(1.0 * (attempt + 1))
+                err_s = str(exc)
+                errors.append(f"{model_name} [try {attempt+1}]: {err_s}")
+                if attempt == 0 and ("429" in err_s or "503" in err_s or "timed out" in err_s.lower() or "timeout" in err_s.lower()):
+                    time.sleep(1.5)
                     continue
                 break
-    raise RuntimeError(last_err)
+    raise RuntimeError(" | ".join(errors[-4:]) if errors else "No compatible Gemini models responded.")
